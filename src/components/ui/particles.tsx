@@ -1,8 +1,13 @@
 "use client";
 
-import React, {type ComponentPropsWithoutRef, useEffect, useRef, useState,} from "react";
+import React, {
+  type ComponentPropsWithoutRef,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-import {cn} from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 interface MousePosition {
   x: number;
