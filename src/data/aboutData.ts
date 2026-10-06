@@ -94,7 +94,8 @@ export const certificationData: CertificationItem[] = [
     title: "Database Programming",
     issuer: "Oracle Academy",
     issueDate: "Aug 2023",
-    credentialUrl: "https://drive.google.com/file/d/17azhP-2ncrddvdW79C0GoUcyJz5kB1k5/view",
+    credentialUrl:
+      "https://drive.google.com/file/d/17azhP-2ncrddvdW79C0GoUcyJz5kB1k5/view",
     techStack: ["Oracle SQL", "PL/SQL", "Database Development"],
   },
   {
@@ -102,7 +103,8 @@ export const certificationData: CertificationItem[] = [
     title: "Database Design",
     issuer: "Oracle Academy",
     issueDate: "Jul 2023",
-    credentialUrl: "https://drive.google.com/file/d/1QLkbvwkSU-zR0PyH8t1m1QuJLsux6LiD/view",
+    credentialUrl:
+      "https://drive.google.com/file/d/1QLkbvwkSU-zR0PyH8t1m1QuJLsux6LiD/view",
     techStack: ["Relational Modeling", "ERD", "Normalization"],
   },
 ];
