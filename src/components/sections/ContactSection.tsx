@@ -9,7 +9,7 @@ import {
   Send,
   Sparkles,
 } from "lucide-react";
-import { type FormEvent, useState } from "react";
+import { type SubmitEvent, useState } from "react";
 import { toast } from "sonner";
 import { GithubIcon, InstagramIcon, LinkedinIcon } from "@/assets/icons";
 import { BlurFade } from "@/components/ui/blur-fade";
@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { profileData } from "@/data/profileData";
+import { sendContactEmail } from "@/lib/contact";
 
 export default function ContactSection() {
   const [name, setName] = useState("");
@@ -28,28 +29,44 @@ export default function ContactSection() {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const plainText = message.replace(/<[^>]*>/g, "").trim();
+    if (!name.trim() || !email.trim() || !subject.trim()) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
     if (!plainText) {
       toast.error("Please write a message before sending.");
       return;
     }
 
     setIsSubmitting(true);
+    try {
+      const result = await sendContactEmail({
+        name,
+        email,
+        subject,
+        message,
+      });
 
-    // Simulate fast reliable client feedback
-    setTimeout(() => {
+      if (result.success) {
+        toast.success(
+          "Thank you! Your message has been sent successfully. I will get back to you soon.",
+        );
+        setName("");
+        setEmail("");
+        setSubject("");
+        setMessage("");
+      } else {
+        toast.error(result.error ?? "Failed to send message.");
+      }
+    } catch {
+      toast.error("Something went wrong. Please try again later.");
+    } finally {
       setIsSubmitting(false);
-      toast.success(
-        "Thank you! Your message has been sent successfully. I will get back to you soon.",
-      );
-      setName("");
-      setEmail("");
-      setSubject("");
-      setMessage("");
-    }, 700);
+    }
   };
 
   return (
@@ -229,6 +246,7 @@ export default function ContactSection() {
                       </Label>
                       <Input
                         id="name"
+                        name="name"
                         type="text"
                         placeholder="John Doe"
                         required
@@ -245,6 +263,7 @@ export default function ContactSection() {
                       </Label>
                       <Input
                         id="email"
+                        name="email"
                         type="email"
                         placeholder="john@example.com"
                         required
@@ -262,6 +281,7 @@ export default function ContactSection() {
                     </Label>
                     <Input
                       id="subject"
+                      name="subject"
                       type="text"
                       placeholder="Project Inquiry / Job Opportunity"
                       required

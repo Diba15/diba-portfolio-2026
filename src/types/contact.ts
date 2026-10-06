@@ -7,5 +7,6 @@ export interface ContactFormData {
 
 export interface ContactResponse {
   success: boolean;
-  message: string;
+  message?: string;
+  error?: string;
 }
