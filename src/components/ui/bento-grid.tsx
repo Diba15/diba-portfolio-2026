@@ -23,7 +23,7 @@ const BentoGrid = ({ children, className, ...props }: BentoGridProps) => {
   return (
     <div
       className={cn(
-        "grid w-full auto-rows-[22rem] grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3",
+        "grid w-full auto-rows-88 grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3",
         className,
       )}
       {...props}
@@ -46,55 +46,45 @@ const BentoCard = ({
   <div
     key={name}
     className={cn(
-      "group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-xs transition-all duration-300 hover:shadow-md hover:border-zinc-300",
+      "group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-xs transition-all duration-300 hover:border-zinc-300 hover:shadow-md",
       className,
     )}
     {...props}
   >
-    <div>{background}</div>
-    <div className="z-10 flex flex-col gap-2">
-      <div className="pointer-events-none flex transform-gpu flex-col gap-2 transition-all duration-300 lg:group-hover:-translate-y-8">
-        <div className="flex size-12 items-center justify-center rounded-xl bg-rose-50 text-rose-600 transition-all duration-300 group-hover:scale-110">
-          <Icon className="size-6 text-rose-600" />
-        </div>
-        <h3 className="text-xl font-bold tracking-tight text-zinc-900">
-          {name}
-        </h3>
-        <p className="max-w-lg text-sm leading-relaxed text-zinc-500">
-          {description}
-        </p>
-      </div>
-
-      {/* Mobile CTA */}
-      <div className="pointer-events-none mt-4 flex w-full translate-y-0 transform-gpu flex-row items-center transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 lg:hidden">
-        <Link
-          href={href}
-          className={cn(
-            buttonVariants({ variant: "link", size: "sm" }),
-            "pointer-events-auto p-0 font-semibold text-rose-600 hover:text-rose-700",
-          )}
-        >
-          {cta}
-          <ArrowRightIcon className="ms-1.5 size-4" />
-        </Link>
-      </div>
+    {/* Badge background slot in top-right */}
+    <div className="pointer-events-none absolute top-6 right-6 z-10">
+      {background}
     </div>
 
-    {/* Desktop Hover CTA */}
-    <div className="pointer-events-none absolute bottom-0 left-0 hidden w-full translate-y-10 transform-gpu flex-row items-center p-6 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 lg:flex">
+    {/* Card Content */}
+    <div className="flex flex-col gap-2">
+      <div className="flex size-12 items-center justify-center rounded-xl bg-rose-50 text-rose-600 transition-transform duration-300 group-hover:scale-105">
+        <Icon className="size-6 text-rose-600" />
+      </div>
+      <h3 className="mt-2 text-xl font-bold tracking-tight text-zinc-900">
+        {name}
+      </h3>
+      <p className="max-w-lg text-sm leading-relaxed text-zinc-600">
+        {description}
+      </p>
+    </div>
+
+    {/* CTA Link - Positioned cleanly at bottom, highest z-index, fully clickable */}
+    <div className="relative z-20 mt-6 flex items-center">
       <Link
         href={href}
         className={cn(
           buttonVariants({ variant: "link", size: "sm" }),
-          "pointer-events-auto p-0 font-semibold text-rose-600 hover:text-rose-700",
+          "inline-flex items-center p-0 font-semibold text-rose-600 hover:text-rose-700 transition-colors",
         )}
       >
-        {cta}
-        <ArrowRightIcon className="ms-1.5 size-4" />
+        <span>{cta}</span>
+        <ArrowRightIcon className="ms-1.5 size-4 transition-transform duration-200 group-hover:translate-x-1" />
       </Link>
     </div>
 
-    <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-rose-50/20" />
+    {/* Background hover tint */}
+    <div className="pointer-events-none absolute inset-0 transition-colors duration-300 group-hover:bg-rose-50/20" />
   </div>
 );
 

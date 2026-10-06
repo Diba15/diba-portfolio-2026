@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Footer from "@/components/base/Footer";
 import Navbar from "@/components/base/Navbar";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -10,8 +11,9 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio | Personal Showcase",
-  description: "Personal portfolio and project showcase",
+  title: "Dimas Bagas Saputro | Frontend Developer Portfolio",
+  description:
+    "Personal portfolio of Dimas Bagas Saputro, a Frontend Developer crafting modern web applications.",
 };
 
 export default function RootLayout({
@@ -28,6 +30,7 @@ export default function RootLayout({
         <Navbar />
         <div className="flex-1 flex flex-col">{children}</div>
         <Footer />
+        <Toaster position="bottom-right" richColors />
       </body>
     </html>
   );

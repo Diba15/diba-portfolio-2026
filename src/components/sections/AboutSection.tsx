@@ -21,11 +21,11 @@ const aboutFeatures = [
     cta: "Read Full Bio",
     className: "md:col-span-2 lg:col-span-2",
     background: (
-      <div className="absolute top-4 right-4 flex flex-wrap gap-2 opacity-60">
-        <span className="rounded-md border border-rose-200 bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-700">
+      <div className="flex flex-wrap gap-2">
+        <span className="rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700 shadow-2xs">
           Telkom University
         </span>
-        <span className="rounded-md border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-700">
+        <span className="rounded-full border border-zinc-200 bg-zinc-100 px-3 py-1 text-xs font-semibold text-zinc-800 shadow-2xs">
           Frontend Engineer
         </span>
       </div>
@@ -40,11 +40,11 @@ const aboutFeatures = [
     cta: "Explore Skills Matrix",
     className: "md:col-span-1 lg:col-span-1",
     background: (
-      <div className="absolute top-4 right-4 flex gap-1 opacity-70">
-        <span className="rounded-md bg-zinc-100 px-2 py-0.5 text-[11px] font-medium text-zinc-600">
+      <div className="flex flex-wrap gap-1.5">
+        <span className="rounded-full border border-zinc-200 bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-800">
           React 19
         </span>
-        <span className="rounded-md bg-rose-50 px-2 py-0.5 text-[11px] font-medium text-rose-600">
+        <span className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-1 text-xs font-medium text-rose-700">
           Next.js 16
         </span>
       </div>
@@ -59,8 +59,8 @@ const aboutFeatures = [
     cta: "View Education Details",
     className: "md:col-span-1 lg:col-span-1",
     background: (
-      <div className="absolute top-4 right-4 opacity-70">
-        <span className="rounded-md bg-zinc-100 px-2 py-0.5 text-[11px] font-medium text-zinc-600">
+      <div className="flex">
+        <span className="rounded-full border border-zinc-200 bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-800">
           S1 & D3 Graduate
         </span>
       </div>
@@ -75,8 +75,8 @@ const aboutFeatures = [
     cta: "View Credentials",
     className: "md:col-span-1 lg:col-span-1",
     background: (
-      <div className="absolute top-4 right-4 opacity-70">
-        <span className="rounded-md bg-rose-50 px-2 py-0.5 text-[11px] font-medium text-rose-600">
+      <div className="flex">
+        <span className="rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-medium text-rose-700">
           Oracle & Dicoding
         </span>
       </div>
@@ -91,8 +91,9 @@ const aboutFeatures = [
     cta: "Get In Touch",
     className: "md:col-span-1 lg:col-span-1",
     background: (
-      <div className="absolute top-4 right-4 opacity-70">
-        <span className="rounded-md bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700">
+      <div className="flex">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+          <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
           Online • GMT+7
         </span>
       </div>
