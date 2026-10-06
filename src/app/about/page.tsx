@@ -227,16 +227,26 @@ export default function AboutPage() {
                       </ul>
                     )}
 
-                    {/* Thesis / Final Project Highlight */}
+                    {/* Undergraduate Thesis */}
                     {edu.thesis && (
                       <div className="mt-4 rounded-xl border border-rose-100 bg-rose-50/40 p-3.5 text-xs leading-relaxed text-zinc-700">
                         <span className="font-semibold text-zinc-900">
-                          {edu.id === "edu_telkom_s1"
-                            ? "Undergraduate Thesis: "
-                            : "Final Project: "}
+                          Undergraduate Thesis:{" "}
                         </span>
                         <span className="italic font-medium text-zinc-800">
                           &ldquo;{edu.thesis}&rdquo;
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Final Project */}
+                    {edu.finalProject && (
+                      <div className="mt-4 rounded-xl border border-rose-100 bg-rose-50/40 p-3.5 text-xs leading-relaxed text-zinc-700">
+                        <span className="font-semibold text-zinc-900">
+                          Final Project:{" "}
+                        </span>
+                        <span className="italic font-medium text-zinc-800">
+                          &ldquo;{edu.finalProject}&rdquo;
                         </span>
                       </div>
                     )}

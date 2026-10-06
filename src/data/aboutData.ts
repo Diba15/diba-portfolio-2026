@@ -12,6 +12,7 @@ export const educationData: EducationItem[] = [
     fieldOfStudy: "Fullstack Software Engineering",
     period: "Feb 2026 - Sep 2026",
     location: "Remote",
+    finalProject: "Trubrush: Digital Art Portfolio & Commission Platform with Integrated Escrow and Artwork Verification.",
     techStack: [
       "TypeScript",
       "JavaScript",
@@ -26,6 +27,7 @@ export const educationData: EducationItem[] = [
       "Completed an intensive full-stack program building responsive web applications with HTML, CSS, JavaScript, TypeScript, React, and Next.js.",
       "Architected RESTful APIs with NestJS and PostgreSQL backed by clean architecture principles.",
       "Utilized Git for version control and collaborative team workflows, applying AI tools responsibly to improve development efficiency.",
+      "Built TruBrush as CRACK (AKA Final Project).",
     ],
   },
   {
@@ -58,7 +60,7 @@ export const educationData: EducationItem[] = [
     period: "Sep 2019 - Sep 2022",
     location: "Bandung, Indonesia",
     gpa: "3.85 / 4.00",
-    thesis:
+    finalProject:
       "PROAKFIT, a Final Project Management Application of the Faculty of Applied Sciences.",
     techStack: [
       "PHP",
