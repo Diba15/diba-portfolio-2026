@@ -12,7 +12,8 @@ export const educationData: EducationItem[] = [
     fieldOfStudy: "Fullstack Software Engineering",
     period: "Feb 2026 - Sep 2026",
     location: "Remote",
-    finalProject: "Trubrush: Digital Art Portfolio & Commission Platform with Integrated Escrow and Artwork Verification.",
+    finalProject:
+      "Trubrush: Digital Art Portfolio & Commission Platform with Integrated Escrow and Artwork Verification.",
     techStack: [
       "TypeScript",
       "JavaScript",
@@ -85,7 +86,7 @@ export const certificationData: CertificationItem[] = [
     issuer: "Dicoding Indonesia",
     issueDate: "Feb 2024",
     expirationDate: "Feb 2028",
-    credentialUrl: "https://dicoding.com",
+    credentialUrl: "https://www.dicoding.com/certificates/GRX532NG3Z0M",
     techStack: ["Frontend", "HTML5", "CSS3", "JavaScript DOM"],
   },
   {
@@ -93,7 +94,7 @@ export const certificationData: CertificationItem[] = [
     title: "Database Programming",
     issuer: "Oracle Academy",
     issueDate: "Aug 2023",
-    credentialUrl: "https://oracle.com",
+    credentialUrl: "https://drive.google.com/file/d/17azhP-2ncrddvdW79C0GoUcyJz5kB1k5/view",
     techStack: ["Oracle SQL", "PL/SQL", "Database Development"],
   },
   {
@@ -101,7 +102,7 @@ export const certificationData: CertificationItem[] = [
     title: "Database Design",
     issuer: "Oracle Academy",
     issueDate: "Jul 2023",
-    credentialUrl: "https://oracle.com",
+    credentialUrl: "https://drive.google.com/file/d/1QLkbvwkSU-zR0PyH8t1m1QuJLsux6LiD/view",
     techStack: ["Relational Modeling", "ERD", "Normalization"],
   },
 ];
@@ -121,8 +122,8 @@ export const skillsData: SkillCategory[] = [
   {
     category: "Frameworks & Libraries",
     skills: [
-      { name: "React 19", level: "Advanced" },
-      { name: "Next.js 16 (App Router)", level: "Advanced" },
+      { name: "React 19", level: "Intermediate" },
+      { name: "Next.js 16 (App Router)", level: "Intermediate" },
       { name: "Tailwind CSS v4", level: "Advanced" },
       { name: "NestJS", level: "Intermediate" },
       { name: "Laravel", level: "Intermediate" },
@@ -135,7 +136,7 @@ export const skillsData: SkillCategory[] = [
     category: "Databases & Tools",
     skills: [
       { name: "PostgreSQL", level: "Intermediate" },
-      { name: "MySQL", level: "Advanced" },
+      { name: "MySQL", level: "Intermediate" },
       { name: "MongoDB", level: "Intermediate" },
       { name: "Git & GitHub", level: "Advanced" },
       { name: "Bun & NPM", level: "Advanced" },
@@ -148,8 +149,8 @@ export const skillsData: SkillCategory[] = [
     category: "Soft Skills & Principles",
     skills: [
       { name: "Team Collaboration", level: "Advanced" },
-      { name: "Problem Solving", level: "Advanced" },
-      { name: "Detail-Oriented", level: "Advanced" },
+      { name: "Problem Solving", level: "Intermediate" },
+      { name: "Detail-Oriented", level: "Intermediate" },
       { name: "Analytical Thinking", level: "Advanced" },
       { name: "Adaptability", level: "Advanced" },
       { name: "Responsible AI Usage", level: "Advanced" },

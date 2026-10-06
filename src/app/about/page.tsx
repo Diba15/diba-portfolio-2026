@@ -299,9 +299,9 @@ export default function AboutPage() {
                   gradientFrom="#e11d48"
                   gradientTo="#fb7185"
                   gradientSize={280}
-                  className="flex h-full flex-col justify-between rounded-2xl border border-zinc-200/80 p-6 shadow-xs transition-all hover:border-zinc-300 hover:shadow-md"
+                  className="rounded-2xl border border-zinc-200/80 p-6 shadow-xs transition-all hover:border-zinc-300 hover:shadow-md"
                 >
-                  <div>
+                  <div className="flex flex-1 flex-col">
                     <div className="flex items-center justify-between gap-2">
                       <span className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-0.5 text-xs font-semibold text-rose-700">
                         {cert.issuer}
@@ -311,12 +311,12 @@ export default function AboutPage() {
                       </span>
                     </div>
 
-                    <h3 className="mt-4 text-lg font-bold tracking-tight text-zinc-900">
+                    <h3 className="mt-4 flex min-h-[3.5rem] items-start text-lg font-bold tracking-tight text-zinc-900 leading-snug">
                       {cert.title}
                     </h3>
 
                     {cert.techStack && (
-                      <div className="mt-4 flex flex-wrap gap-1.5">
+                      <div className="mt-3 flex flex-wrap gap-1.5">
                         {cert.techStack.map((tech) => (
                           <span
                             key={tech}
