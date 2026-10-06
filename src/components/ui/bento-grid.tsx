@@ -51,16 +51,20 @@ const BentoCard = ({
     )}
     {...props}
   >
-    {/* Badge background slot in top-right */}
-    <div className="pointer-events-none absolute top-6 right-6 z-10">
-      {background}
-    </div>
-
     {/* Card Content */}
     <div className="flex flex-col gap-2">
-      <div className="flex size-12 items-center justify-center rounded-xl bg-rose-50 text-rose-600 transition-transform duration-300 group-hover:scale-105">
-        <Icon className="size-6 text-rose-600" />
+      {/* Header Row: Icon & Chip Slot */}
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-rose-50 text-rose-600 transition-transform duration-300 group-hover:scale-105">
+          <Icon className="size-6 text-rose-600" />
+        </div>
+        {background && (
+          <div className="flex flex-1 flex-wrap items-center justify-end gap-1.5">
+            {background}
+          </div>
+        )}
       </div>
+
       <h3 className="mt-2 text-xl font-bold tracking-tight text-zinc-900">
         {name}
       </h3>

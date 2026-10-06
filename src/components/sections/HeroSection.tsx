@@ -32,8 +32,8 @@ export default function HeroSection() {
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
-          {/* Left Column: Profile Info & Actions */}
-          <div className="flex flex-col items-center text-center lg:col-span-7 lg:items-start lg:text-left">
+          {/* Profile Info & Actions Column */}
+          <div className="order-2 flex flex-col items-center text-center lg:order-1 lg:col-span-7 lg:items-start lg:text-left">
             {/* Availability Badge */}
             <div className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50/90 px-3.5 py-1.5 text-xs font-semibold text-rose-700 shadow-xs backdrop-blur-xs">
               <span className="relative flex size-2">
@@ -144,8 +144,8 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: Profile Portrait Frame */}
-          <div className="flex justify-center lg:col-span-5 lg:justify-end">
+          {/* Profile Portrait Frame Column */}
+          <div className="order-1 flex justify-center lg:order-2 lg:col-span-5 lg:justify-end">
             <div className="group relative">
               {/* Crimson Glow Layer */}
               <div className="absolute -inset-2 rounded-full bg-linear-to-tr from-rose-500 to-rose-600 opacity-20 blur-2xl transition duration-500 group-hover:opacity-35" />
