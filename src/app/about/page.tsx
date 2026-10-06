@@ -7,6 +7,7 @@ import {
   Calendar,
   Code2,
   ExternalLink,
+  Globe,
   GraduationCap,
   Mail,
   MapPin,
@@ -17,6 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Highlighter } from "@/components/ui/highlighter";
 import { MagicCard } from "@/components/ui/magic-card";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -74,6 +76,18 @@ export default function AboutPage() {
                   <MapPin className="size-3 text-zinc-500" />
                   {profileData.location} (GMT+7)
                 </span>
+                {profileData.languages?.map((lang) => (
+                  <span
+                    key={lang.language}
+                    className="inline-flex items-center gap-1 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600"
+                  >
+                    <Globe className="size-3 text-zinc-400" />
+                    <span>{lang.language}:</span>
+                    <span className="font-semibold text-zinc-800">
+                      {lang.level}
+                    </span>
+                  </span>
+                ))}
               </div>
             </div>
 
@@ -93,19 +107,56 @@ export default function AboutPage() {
               Biography & Engineering Philosophy
             </h2>
             <div className="space-y-4 text-base leading-relaxed text-zinc-600">
-              <p>{profileData.fullBio}</p>
               <p>
-                My development workflow centers around building reliable,
-                type-safe, and highly accessible user interfaces. I strongly
-                value clean architecture principles (SOLID &amp; DRY) paired
-                with pragmatic minimalism (KISS &amp; YAGNI). Every component is
-                crafted with consideration for performance, search visibility,
-                and seamless interaction design.
+                I am an Informatics graduate who values{" "}
+                <Highlighter action="highlight" color="#fecdd3" isView>
+                  user empathy, clarity, and clean, maintainable code
+                </Highlighter>
+                . I worked as a Frontend Developer at SIMBARRAYA, completed a
+                Technical Writer internship at BPH MIGAS, and built full-stack
+                projects in the RevoU Full-Stack Software Engineer program. At
+                SIMBARRAYA, I built responsive, device-friendly interfaces with
+                Laravel and Bootstrap, working closely with design and backend
+                teams to improve performance and usability. My strengths include
+                React, Next.js, TypeScript, and PostgreSQL, alongside
+                collaboration and clear communication. I{" "}
+                <Highlighter
+                  action="underline"
+                  color="#f43f5e"
+                  strokeWidth={2}
+                  isView
+                >
+                  use AI responsibly
+                </Highlighter>{" "}
+                to speed up development while reviewing and understanding every
+                change, and I&apos;m eager to contribute as a
+                frontend/full-stack developer.
+              </p>
+              <p>
+                My development workflow centers around building{" "}
+                <Highlighter
+                  action="underline"
+                  color="#f43f5e"
+                  strokeWidth={2}
+                  isView
+                >
+                  reliable, type-safe, and highly accessible
+                </Highlighter>{" "}
+                user interfaces. I strongly value{" "}
+                <Highlighter action="highlight" color="#fef08a" isView>
+                  clean architecture principles (SOLID &amp; DRY)
+                </Highlighter>{" "}
+                paired with pragmatic minimalism (KISS &amp; YAGNI). Every
+                component is crafted with consideration for performance, search
+                visibility, and seamless interaction design.
               </p>
               <p>
                 Whether architecting dynamic single-page applications or
-                integrating robust REST APIs, I prioritize delightful end-user
-                experiences and maintainable, scalable codebases.
+                integrating robust REST APIs, I prioritize{" "}
+                <Highlighter action="highlight" color="#fecdd3" isView>
+                  delightful end-user experiences
+                </Highlighter>{" "}
+                and maintainable, scalable codebases.
               </p>
             </div>
           </section>
@@ -151,10 +202,17 @@ export default function AboutPage() {
                           </p>
                         )}
                       </div>
-                      <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-semibold text-zinc-700">
-                        <Calendar className="size-3 text-zinc-400" />
-                        {edu.period}
-                      </span>
+                      <div className="flex flex-wrap items-center gap-2">
+                        {edu.gpa && (
+                          <span className="inline-flex w-fit items-center rounded-full border border-rose-200 bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-700 shadow-2xs">
+                            GPA: {edu.gpa}
+                          </span>
+                        )}
+                        <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-semibold text-zinc-700">
+                          <Calendar className="size-3 text-zinc-400" />
+                          {edu.period}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Descriptions */}
@@ -167,6 +225,20 @@ export default function AboutPage() {
                           </li>
                         ))}
                       </ul>
+                    )}
+
+                    {/* Thesis / Final Project Highlight */}
+                    {edu.thesis && (
+                      <div className="mt-4 rounded-xl border border-rose-100 bg-rose-50/40 p-3.5 text-xs leading-relaxed text-zinc-700">
+                        <span className="font-semibold text-zinc-900">
+                          {edu.id === "edu_telkom_s1"
+                            ? "Undergraduate Thesis: "
+                            : "Final Project: "}
+                        </span>
+                        <span className="italic font-medium text-zinc-800">
+                          &ldquo;{edu.thesis}&rdquo;
+                        </span>
+                      </div>
                     )}
 
                     {/* Tech Stack Chips */}

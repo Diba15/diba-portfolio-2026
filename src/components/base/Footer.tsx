@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Brand from "@/components/ui/Brand";
-import type { NavItem} from "@/types/navigation";
+import type { NavItem } from "@/types/navigation";
 
 const FOOTER_NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },

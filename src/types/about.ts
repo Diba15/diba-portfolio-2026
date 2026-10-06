@@ -6,6 +6,7 @@ export interface EducationItem {
   period: string;
   location?: string;
   gpa?: string;
+  thesis?: string;
   techStack?: string[];
   descriptions?: string[];
   achievements?: string[];
