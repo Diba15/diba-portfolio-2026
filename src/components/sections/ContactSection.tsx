@@ -9,6 +9,7 @@ import {
   Send,
   Sparkles,
 } from "lucide-react";
+import type React from "react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { BlurFade } from "@/components/ui/blur-fade";
@@ -17,7 +18,7 @@ import { Card } from "@/components/ui/card";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { profileData } from "@/data/profileData";
 
 function GithubIcon({ className }: { className?: string }) {
@@ -78,6 +79,13 @@ export default function ContactSection() {
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const plainText = message.replace(/<[^>]*>/g, "").trim();
+    if (!plainText) {
+      toast.error("Please write a message before sending.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     // Simulate fast reliable client feedback
@@ -115,7 +123,7 @@ export default function ContactSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center lg:gap-16">
           {/* Left Column: Direct Info & Magic UI Dock */}
           <div className="flex flex-col lg:col-span-5">
             <BlurFade delay={0.1} inView>
@@ -314,17 +322,14 @@ export default function ContactSection() {
 
                   {/* Message */}
                   <div className="space-y-2">
-                    <Label htmlFor="message" className="text-xs font-semibold">
-                      Message
+                    <Label className="text-xs font-semibold">
+                      Message (Rich Text)
                     </Label>
-                    <Textarea
-                      id="message"
+                    <RichTextEditor
+                      content={message}
+                      onChange={setMessage}
                       placeholder="Hi Dimas, I would love to discuss a project with you..."
-                      rows={5}
-                      required
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      className="rounded-xl border-zinc-200 focus-visible:ring-rose-500 resize-none"
+                      disabled={isSubmitting}
                     />
                   </div>
 
