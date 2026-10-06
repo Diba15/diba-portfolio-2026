@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${plusJakartaSans.variable} h-full antialiased`}
+      className={`${plusJakartaSans.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans bg-white text-zinc-900">
         <Navbar />

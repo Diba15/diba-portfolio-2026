@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Brand from "@/components/ui/Brand";
-import type { NavItem, SocialLink } from "@/types/navigation";
+import type { NavItem} from "@/types/navigation";
 
 const FOOTER_NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
@@ -8,11 +8,6 @@ const FOOTER_NAV_ITEMS: NavItem[] = [
   { label: "Projects", href: "/#projects" },
   { label: "Experience", href: "/#experience" },
   { label: "Contact", href: "/#contact" },
-];
-
-const SOCIAL_LINKS: SocialLink[] = [
-  { label: "GitHub", href: "https://github.com" },
-  { label: "LinkedIn", href: "https://linkedin.com" },
 ];
 
 export default function Footer() {
@@ -38,20 +33,6 @@ export default function Footer() {
               >
                 {item.label}
               </Link>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-4 text-sm text-zinc-600">
-            {SOCIAL_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-colors hover:text-rose-600"
-              >
-                {link.label}
-              </a>
             ))}
           </div>
         </div>
