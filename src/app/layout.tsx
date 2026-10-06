@@ -5,6 +5,7 @@ import Footer from "@/components/base/Footer";
 import Navbar from "@/components/base/Navbar";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next"
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -28,6 +29,7 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans bg-white text-zinc-900">
+        <Analytics />
         <Navbar />
         <div className="flex-1 flex flex-col">{children}</div>
         <Footer />
