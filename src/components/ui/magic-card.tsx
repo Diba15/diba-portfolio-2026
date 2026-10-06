@@ -7,13 +7,20 @@ import {
   useSpring,
 } from "motion/react";
 import { useTheme } from "next-themes";
-import type React from "react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  type ReactNode,
+  type PointerEvent as ReactPointerEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import { cn } from "@/lib/utils";
 
 interface MagicCardBaseProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
   gradientSize?: number;
   gradientFrom?: string;
@@ -125,7 +132,7 @@ export function MagicCard(props: MagicCardProps) {
   );
 
   const handlePointerMove = useCallback(
-    (e: React.PointerEvent<HTMLDivElement>) => {
+    (e: ReactPointerEvent<HTMLDivElement>) => {
       const rect = e.currentTarget.getBoundingClientRect();
       mouseX.set(e.clientX - rect.left);
       mouseY.set(e.clientY - rect.top);

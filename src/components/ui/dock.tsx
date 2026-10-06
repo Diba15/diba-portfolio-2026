@@ -9,7 +9,16 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import React, { type PropsWithChildren, useRef } from "react";
+import {
+  Children,
+  cloneElement,
+  forwardRef,
+  type HTMLAttributes,
+  isValidElement,
+  type PropsWithChildren,
+  type ReactNode,
+  useRef,
+} from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -20,7 +29,7 @@ export interface DockProps extends VariantProps<typeof dockVariants> {
   disableMagnification?: boolean;
   iconDistance?: number;
   direction?: "top" | "middle" | "bottom";
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const DEFAULT_SIZE = 40;
@@ -32,7 +41,7 @@ const dockVariants = cva(
   "supports-backdrop-blur:bg-white/10 supports-backdrop-blur:dark:bg-black/10 mx-auto mt-8 flex h-[58px] w-max items-center justify-center gap-2 rounded-2xl border p-2 backdrop-blur-md",
 );
 
-const Dock = React.forwardRef<HTMLDivElement, DockProps>(
+const Dock = forwardRef<HTMLDivElement, DockProps>(
   (
     {
       className,
@@ -49,12 +58,9 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
     const mouseX = useMotionValue(Infinity);
 
     const renderChildren = () => {
-      return React.Children.map(children, (child) => {
-        if (
-          React.isValidElement<DockIconProps>(child) &&
-          child.type === DockIcon
-        ) {
-          return React.cloneElement(child, {
+      return Children.map(children, (child) => {
+        if (isValidElement<DockIconProps>(child) && child.type === DockIcon) {
+          return cloneElement(child, {
             ...child.props,
             mouseX: mouseX,
             size: iconSize,
@@ -88,14 +94,14 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
 Dock.displayName = "Dock";
 
 export interface DockIconProps
-  extends Omit<MotionProps & React.HTMLAttributes<HTMLDivElement>, "children"> {
+  extends Omit<MotionProps & HTMLAttributes<HTMLDivElement>, "children"> {
   size?: number;
   magnification?: number;
   disableMagnification?: boolean;
   distance?: number;
   mouseX?: MotionValue<number>;
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   props?: PropsWithChildren;
 }
 

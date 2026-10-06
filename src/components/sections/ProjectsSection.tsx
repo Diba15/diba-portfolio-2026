@@ -1,4 +1,5 @@
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { buttonVariants } from "@/components/ui/button";
@@ -93,9 +94,11 @@ export default function ProjectsSection() {
                       </span>
                     </div>
 
-                    <h3 className="mt-3 text-xl font-bold tracking-tight text-zinc-900 transition-colors group-hover:text-rose-600">
-                      {project.title}
-                    </h3>
+                    <Link href={`/projects/${project.slug}`}>
+                      <h3 className="mt-3 text-xl font-bold tracking-tight text-zinc-900 transition-colors group-hover:text-rose-600">
+                        {project.title}
+                      </h3>
+                    </Link>
 
                     <p className="mt-2.5 text-sm leading-relaxed text-zinc-600">
                       {project.summary}
@@ -115,37 +118,18 @@ export default function ProjectsSection() {
                   </div>
                 </div>
 
-                {/* Card Action Buttons */}
-                <div className="flex items-center gap-3 border-t border-zinc-100 bg-zinc-50/50 p-6 pt-4">
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={cn(
-                        buttonVariants({ size: "sm" }),
-                        "flex-1 rounded-lg text-xs font-semibold shadow-xs",
-                      )}
-                    >
-                      <ExternalLink className="mr-1.5 size-3.5" />
-                      Website
-                    </a>
-                  )}
-
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={cn(
-                        buttonVariants({ variant: "outline", size: "sm" }),
-                        "flex-1 rounded-lg text-xs font-semibold hover:border-zinc-300 hover:bg-white hover:text-rose-600",
-                      )}
-                    >
-                      <GithubIcon className="mr-1.5 size-3.5" />
-                      GitHub
-                    </a>
-                  )}
+                {/* Card Action Button: View Details */}
+                <div className="border-t border-zinc-100 bg-zinc-50/50 p-6 pt-4">
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className={cn(
+                      buttonVariants({ size: "default" }),
+                      "w-full rounded-xl font-semibold shadow-xs transition-all hover:shadow-md",
+                    )}
+                  >
+                    View Project Details
+                    <ArrowRight className="ms-2 size-4" />
+                  </Link>
                 </div>
               </Card>
             </BlurFade>

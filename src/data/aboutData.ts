@@ -68,7 +68,7 @@ export const educationData: EducationItem[] = [
       "Gained comprehensive foundation in software engineering spanning web development (PHP, CodeIgniter, MySQL) and mobile application development (Java, Kotlin, Android).",
       "Prepared graphical user interface assets and wireframes using Adobe Illustrator.",
     ],
-  }
+  },
 ];
 
 export const certificationData: CertificationItem[] = [

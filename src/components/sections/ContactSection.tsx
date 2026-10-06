@@ -9,8 +9,7 @@ import {
   Send,
   Sparkles,
 } from "lucide-react";
-import type React from "react";
-import { useState } from "react";
+import { type FormEvent, useState } from "react";
 import { toast } from "sonner";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Button } from "@/components/ui/button";
@@ -77,7 +76,7 @@ export default function ContactSection() {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const plainText = message.replace(/<[^>]*>/g, "").trim();

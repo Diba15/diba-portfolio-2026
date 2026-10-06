@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import type { ReactNode } from "react";
 import Footer from "@/components/base/Footer";
 import Navbar from "@/components/base/Navbar";
 import { Toaster } from "@/components/ui/sonner";
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html
