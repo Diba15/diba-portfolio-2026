@@ -6,6 +6,8 @@ export interface EducationItem {
   period: string;
   location?: string;
   gpa?: string;
+  techStack?: string[];
+  descriptions?: string[];
   achievements?: string[];
 }
 
@@ -18,6 +20,7 @@ export interface CertificationItem {
   credentialId?: string;
   credentialUrl?: string;
   badgeUrl?: string;
+  techStack?: string[];
 }
 
 export interface SkillCategory {
