@@ -1,11 +1,16 @@
 import {
   ArrowLeft,
   ArrowRight,
+  BookOpen,
   CheckCircle2,
   Compass,
   ExternalLink,
   Layers,
+  Rocket,
+  ShieldCheck,
   Sparkles,
+  Target,
+  Workflow,
 } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -47,7 +52,7 @@ export async function generateMetadata({ params }: ProjectDetailPageProps) {
   }
 
   return {
-    title: `${project.title} - Project Case Study | Dimas Bagas Saputro`,
+    title: `${project.title} - Case Study | Dimas Bagas Saputro`,
     description: project.summary,
   };
 }
@@ -68,6 +73,7 @@ export default async function ProjectDetailPage({
       : [project.thumbnail];
 
   const otherProjects = projectsData.filter((p) => p.slug !== slug);
+  const cs = project.caseStudy;
 
   return (
     <div className="min-h-screen bg-white">
@@ -145,11 +151,26 @@ export default async function ProjectDetailPage({
                   View GitHub Repository
                 </a>
               )}
+
+              {project.docsUrl && (
+                <a
+                  href={project.docsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(
+                    buttonVariants({ variant: "outline", size: "lg" }),
+                    "rounded-full px-6 border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50 hover:text-rose-600",
+                  )}
+                >
+                  <BookOpen className="mr-2 size-4" />
+                  API Documentation (Swagger)
+                </a>
+              )}
             </div>
           </div>
         </BlurFade>
 
-        {/* Interactive Image Screenshot Carousel */}
+        {/* Section 4: Visual Suggestion (Screenshot Mockup Carousel) */}
         <BlurFade delay={0.15} inView>
           <div className="mt-12">
             <Carousel className="w-full" opts={{ loop: true }}>
@@ -208,91 +229,289 @@ export default async function ProjectDetailPage({
 
         <Separator className="my-14" />
 
-        {/* Section 1: Project Overview */}
-        <BlurFade delay={0.2} inView>
-          <section className="space-y-6">
-            <h2 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
-              Project Overview &amp; Background
-            </h2>
-            <div className="space-y-4 text-base leading-relaxed text-zinc-600 sm:text-lg">
-              <p>{project.description}</p>
-            </div>
-          </section>
-        </BlurFade>
-
-        <Separator className="my-14" />
-
-        {/* Section 2: Key Features */}
-        {project.features && project.features.length > 0 && (
+        {/* Case Study Content (RevoU Slide Layout: 2 Balanced Columns) */}
+        {cs ? (
           <>
-            <BlurFade delay={0.25} inView>
-              <section className="space-y-6">
-                <div>
-                  <div className="flex items-center gap-2 text-rose-600 font-semibold text-sm">
-                    <Sparkles className="size-4" />
-                    <span>Capabilities</span>
-                  </div>
-                  <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
-                    Key Features &amp; Implementation
-                  </h2>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {project.features.map((feature) => (
-                    <Card
-                      key={feature}
-                      className="rounded-xl border border-zinc-200/80 bg-zinc-50/50 p-5 shadow-2xs transition-colors hover:border-zinc-300 hover:bg-white"
-                    >
-                      <CardContent className="p-0 flex items-start gap-3">
-                        <div className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-rose-50 text-rose-600">
-                          <CheckCircle2 className="size-4" />
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+              {/* LEFT COLUMN: Project Background & Technical Stack */}
+              <div className="space-y-8">
+                {/* Block 1: Project Background */}
+                <BlurFade delay={0.2} inView>
+                  <Card className="rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-xs sm:p-7 space-y-6">
+                    <CardContent className="p-0 space-y-6">
+                      <div>
+                        <div className="flex items-center gap-2 text-rose-600 font-semibold text-xs tracking-wider uppercase">
+                          <Sparkles className="size-3.5" />
+                          <span>Section 1: Project Summary</span>
                         </div>
-                        <p className="text-sm font-semibold text-zinc-800 leading-snug pt-0.5">
-                          {feature}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </section>
-            </BlurFade>
+                        <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900">
+                          Project Background
+                        </h2>
+                      </div>
 
-            <Separator className="my-14" />
+                      {/* Overview */}
+                      <div className="space-y-1.5">
+                        <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
+                          Overview
+                        </h3>
+                        <p className="text-sm leading-relaxed text-zinc-600">
+                          {cs.overview}
+                        </p>
+                      </div>
+
+                      {/* Problem Statement */}
+                      <div className="space-y-1.5">
+                        <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
+                          Problem Statement
+                        </h3>
+                        <p className="text-sm leading-relaxed text-zinc-600">
+                          {cs.problemStatement}
+                        </p>
+                      </div>
+
+                      {/* Problem -> Solution Mapping */}
+                      {cs.problemSolutions &&
+                        cs.problemSolutions.length > 0 && (
+                          <div className="space-y-2 pt-1">
+                            <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
+                              Masalah &amp; Solusi Kunci
+                            </h3>
+                            <div className="space-y-2">
+                              {cs.problemSolutions.map((item, idx) => (
+                                <div
+                                  key={item.problem}
+                                  className="rounded-xl border border-zinc-200/90 bg-zinc-50/70 p-3 text-xs space-y-1.5"
+                                >
+                                  <div className="flex items-start gap-2">
+                                    <span className="shrink-0 rounded-md bg-zinc-200/80 px-1.5 py-0.5 font-mono font-bold text-[10px] text-zinc-700">
+                                      P{item.idNumber ?? idx + 1}
+                                    </span>
+                                    <p className="font-semibold text-zinc-800 leading-snug">
+                                      {item.problem}
+                                    </p>
+                                  </div>
+                                  <div className="flex items-start gap-2 border-l-2 border-rose-300 pl-2 ml-2">
+                                    <span className="shrink-0 font-bold text-[11px] text-rose-600">
+                                      &rarr;
+                                    </span>
+                                    <p className="leading-snug text-zinc-600">
+                                      {item.solution}
+                                    </p>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                    </CardContent>
+                  </Card>
+                </BlurFade>
+
+                {/* Block 2: Technical Stack (Section 3: Tools & Method) */}
+                <BlurFade delay={0.25} inView>
+                  <Card className="rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-xs sm:p-7 space-y-6">
+                    <CardContent className="p-0 space-y-6">
+                      <div>
+                        <div className="flex items-center gap-2 text-rose-600 font-semibold text-xs tracking-wider uppercase">
+                          <Layers className="size-3.5" />
+                          <span>Section 3: Tools &amp; Method</span>
+                        </div>
+                        <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900">
+                          Technical Stack
+                        </h2>
+                      </div>
+
+                      <div className="space-y-4">
+                        {cs.stackGroups.map((group) => (
+                          <div key={group.category} className="space-y-2">
+                            <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
+                              {group.category}
+                            </h3>
+                            <div className="flex flex-wrap gap-1.5">
+                              {group.items.map((item) => (
+                                <span
+                                  key={item}
+                                  className="rounded-lg border border-zinc-200 bg-zinc-50/80 px-3 py-1 font-medium text-xs text-zinc-800 transition-colors hover:border-rose-200 hover:bg-rose-50/60 hover:text-rose-700"
+                                >
+                                  {item}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </BlurFade>
+              </div>
+
+              {/* RIGHT COLUMN: Methodology & Results/Output */}
+              <div className="space-y-8">
+                {/* Block 3: Objectives & Methodology */}
+                <BlurFade delay={0.22} inView>
+                  <Card className="rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-xs sm:p-7 space-y-6">
+                    <CardContent className="p-0 space-y-6">
+                      <div>
+                        <div className="flex items-center gap-2 text-rose-600 font-semibold text-xs tracking-wider uppercase">
+                          <Workflow className="size-3.5" />
+                          <span>Methodology &amp; Strategy</span>
+                        </div>
+                        <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900">
+                          Objectives &amp; Methodology
+                        </h2>
+                      </div>
+
+                      {/* Objectives */}
+                      <div className="space-y-2">
+                        <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
+                          Objectives
+                        </h3>
+                        <ul className="space-y-2 text-sm text-zinc-600">
+                          {cs.objectives.map((obj) => (
+                            <li key={obj} className="flex items-start gap-2.5">
+                              <Target className="mt-0.5 size-4 shrink-0 text-rose-600" />
+                              <span className="leading-snug">{obj}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Solution & Architecture */}
+                      <div className="space-y-1.5 pt-1">
+                        <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
+                          Solution &amp; Architecture
+                        </h3>
+                        <p className="text-sm leading-relaxed text-zinc-600">
+                          {cs.solution}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </BlurFade>
+
+                {/* Block 4: Results & Output (Scope of Work / Achievements) */}
+                <BlurFade delay={0.28} inView>
+                  <Card className="rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-xs sm:p-7 space-y-6">
+                    <CardContent className="p-0 space-y-6">
+                      <div>
+                        <div className="flex items-center gap-2 text-rose-600 font-semibold text-xs tracking-wider uppercase">
+                          <ShieldCheck className="size-3.5" />
+                          <span>
+                            Section 2: Scope of Work &amp; Achievements
+                          </span>
+                        </div>
+                        <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900">
+                          Results &amp; Output
+                        </h2>
+                      </div>
+
+                      {/* Outcomes */}
+                      <div className="space-y-2.5">
+                        <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
+                          Outcomes &amp; Delivered Features
+                        </h3>
+                        <ul className="space-y-2 text-sm text-zinc-600">
+                          {cs.outcomes.map((item) => (
+                            <li key={item} className="flex items-start gap-2.5">
+                              <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-emerald-600" />
+                              <span className="leading-snug">{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Key Achievements */}
+                      <div className="space-y-2.5">
+                        <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
+                          Key Achievements &amp; Engineering Rigor
+                        </h3>
+                        <ul className="space-y-2 text-sm text-zinc-600">
+                          {cs.keyAchievements.map((item) => (
+                            <li key={item} className="flex items-start gap-2.5">
+                              <div className="mt-1 size-1.5 shrink-0 rounded-full bg-rose-600" />
+                              <span className="leading-snug font-medium text-zinc-800">
+                                {item}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Impact */}
+                      {cs.impact && (
+                        <div className="rounded-xl border border-rose-100 bg-rose-50/50 p-4 space-y-1">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-rose-800">
+                            Impact &amp; Key Value
+                          </h4>
+                          <p className="text-xs leading-relaxed text-rose-950">
+                            {cs.impact}
+                          </p>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </BlurFade>
+              </div>
+            </div>
+
+            {/* Section: Future Roadmap & Next Steps */}
+            {cs.futurePlans && cs.futurePlans.length > 0 && (
+              <BlurFade delay={0.3} inView>
+                <div className="mt-12 space-y-5">
+                  <div>
+                    <div className="flex items-center gap-2 text-rose-600 font-semibold text-xs tracking-wider uppercase">
+                      <Rocket className="size-3.5" />
+                      <span>Future Roadmap &amp; Next Steps</span>
+                    </div>
+                    <h3 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900">
+                      Rencana Pengembangan Masa Depan
+                    </h3>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {cs.futurePlans.map((plan) => (
+                      <Card
+                        key={plan.title}
+                        className="rounded-2xl border border-zinc-200/80 bg-white p-5 shadow-xs transition-all hover:border-zinc-300 hover:shadow-sm"
+                      >
+                        <CardContent className="p-0 space-y-2">
+                          <div className="flex items-center justify-between gap-2">
+                            <h4 className="font-bold text-sm text-zinc-900">
+                              {plan.title}
+                            </h4>
+                            <span className="rounded-full border border-rose-200/80 bg-rose-50/70 px-2.5 py-0.5 text-[11px] font-semibold text-rose-700">
+                              {plan.tag}
+                            </span>
+                          </div>
+                          {plan.description && (
+                            <p className="text-xs text-zinc-600 leading-relaxed">
+                              {plan.description}
+                            </p>
+                          )}
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              </BlurFade>
+            )}
           </>
+        ) : (
+          <BlurFade delay={0.2} inView>
+            <section className="space-y-6">
+              <h2 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
+                Project Overview &amp; Background
+              </h2>
+              <div className="space-y-4 text-base leading-relaxed text-zinc-600 sm:text-lg">
+                <p>{project.description}</p>
+              </div>
+            </section>
+          </BlurFade>
         )}
 
-        {/* Section 3: Architecture & Tech Stack */}
-        <BlurFade delay={0.3} inView>
-          <section className="space-y-6">
-            <div>
-              <div className="flex items-center gap-2 text-rose-600 font-semibold text-sm">
-                <Layers className="size-4" />
-                <span>Technologies</span>
-              </div>
-              <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
-                Architecture &amp; Tech Stack
-              </h2>
-              <p className="mt-1 text-sm text-zinc-600">
-                Libraries and technologies utilized in building {project.title}.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-2 pt-2">
-              {project.techStack.map((tech) => (
-                <span
-                  key={tech}
-                  className="rounded-lg border border-zinc-200 bg-white px-3.5 py-1.5 font-medium text-xs text-zinc-800 shadow-2xs transition-colors hover:border-rose-200 hover:bg-rose-50/50 hover:text-rose-700"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </section>
-        </BlurFade>
-
         <Separator className="my-14" />
 
-        {/* Section 4: Explore Other Projects */}
+        {/* Section: Explore Other Projects */}
         <BlurFade delay={0.35} inView>
           <section className="space-y-6">
             <div>
