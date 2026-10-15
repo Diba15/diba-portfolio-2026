@@ -1,7 +1,7 @@
 import {
   ArrowRight,
   Award,
-  Code2,
+  Briefcase,
   Globe,
   GraduationCap,
   Layers,
@@ -13,20 +13,20 @@ import { cn } from "@/lib/utils";
 
 const aboutFeatures = [
   {
-    Icon: Code2,
+    Icon: Briefcase,
     name: "Professional Story",
     description:
-      "Bachelor of Informatics Engineering graduate from Telkom University dedicated to Frontend Web Development. Passionate about crafting high-performance, accessible, and user-centric web applications.",
-    href: "/about",
-    cta: "Read Full Bio",
+      "Proven track record building responsive web interfaces for MSME & tourism platforms at SIMBARRAYA with Laravel & Bootstrap, and developing automated Tableau reporting and system documentation at BPH MIGAS.",
+    href: "#experience",
+    cta: "Explore Experience",
     className: "md:col-span-2 lg:col-span-2",
     background: (
       <div className="flex flex-wrap justify-end gap-1.5">
         <span className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-0.5 text-[11px] font-semibold text-rose-700 shadow-2xs sm:text-xs sm:px-3 sm:py-1">
-          Telkom University
+          SIMBARRAYA
         </span>
         <span className="rounded-full border border-zinc-200 bg-zinc-100 px-2.5 py-0.5 text-[11px] font-semibold text-zinc-800 shadow-2xs sm:text-xs sm:px-3 sm:py-1">
-          Frontend Engineer
+          BPH MIGAS
         </span>
       </div>
     ),
