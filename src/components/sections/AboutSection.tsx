@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ArrowRight,
   Award,
@@ -6,102 +8,112 @@ import {
   GraduationCap,
   Layers,
 } from "lucide-react";
-import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { buttonVariants } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-const aboutFeatures = [
-  {
-    Icon: Briefcase,
-    name: "Professional Story",
-    description:
-      "Proven track record building responsive web interfaces for MSME & tourism platforms at SIMBARRAYA with Laravel & Bootstrap, and developing automated Tableau reporting and system documentation at BPH MIGAS.",
-    href: "#experience",
-    cta: "Explore Experience",
-    className: "md:col-span-2 lg:col-span-2",
-    background: (
-      <div className="flex flex-wrap justify-end gap-1.5">
-        <span className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-0.5 text-[11px] font-semibold text-rose-700 shadow-2xs sm:text-xs sm:px-3 sm:py-1">
-          SIMBARRAYA
-        </span>
-        <span className="rounded-full border border-zinc-200 bg-zinc-100 px-2.5 py-0.5 text-[11px] font-semibold text-zinc-800 shadow-2xs sm:text-xs sm:px-3 sm:py-1">
-          BPH MIGAS
-        </span>
-      </div>
-    ),
-  },
-  {
-    Icon: Layers,
-    name: "Core Tech Stack",
-    description:
-      "Crafting performant apps with Next.js 16, React 19, TypeScript, Tailwind CSS v4, Zustand client store, and TanStack Query server state.",
-    href: "/about#skills",
-    cta: "Explore Skills Matrix",
-    className: "md:col-span-1 lg:col-span-1",
-    background: (
-      <div className="flex flex-wrap justify-end gap-1.5">
-        <span className="rounded-full border border-zinc-200 bg-zinc-100 px-2.5 py-0.5 text-[11px] font-medium text-zinc-800 sm:text-xs sm:py-1">
-          React 19
-        </span>
-        <span className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-0.5 text-[11px] font-medium text-rose-700 sm:text-xs sm:py-1">
-          Next.js 16
-        </span>
-      </div>
-    ),
-  },
-  {
-    Icon: GraduationCap,
-    name: "Education & Growth",
-    description:
-      "S1 & D3 Teknik Informatika Telkom University, complemented by Fullstack Software Engineering at RevoU covering end-to-end architectures.",
-    href: "/about#education",
-    cta: "View Education Details",
-    className: "md:col-span-1 lg:col-span-1",
-    background: (
-      <div className="flex justify-end">
-        <span className="rounded-full border border-zinc-200 bg-zinc-100 px-2.5 py-0.5 text-[11px] font-medium text-zinc-800 sm:text-xs sm:px-3 sm:py-1">
-          S1 &amp; D3 Graduate
-        </span>
-      </div>
-    ),
-  },
-  {
-    Icon: Award,
-    name: "Certifications",
-    description:
-      "Certified in Oracle Database Design & SQL Programming, and Learn SOLID Programming Principles by Dicoding Indonesia.",
-    href: "/about#certificates",
-    cta: "View Credentials",
-    className: "md:col-span-1 lg:col-span-1",
-    background: (
-      <div className="flex justify-end">
-        <span className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-0.5 text-[11px] font-medium text-rose-700 sm:text-xs sm:px-3 sm:py-1">
-          Oracle &amp; Dicoding
-        </span>
-      </div>
-    ),
-  },
-  {
-    Icon: Globe,
-    name: "Location & Availability",
-    description:
-      "Based in Indonesia (GMT+7). Remote-friendly, highly adaptable, and available for full-time roles, contracts, or select freelance projects.",
-    href: "/#contact",
-    cta: "Get In Touch",
-    className: "md:col-span-1 lg:col-span-1",
-    background: (
-      <div className="flex justify-end">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700 sm:text-xs sm:px-3 sm:py-1">
-          <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-          Online • GMT+7
-        </span>
-      </div>
-    ),
-  },
-];
-
 export default function AboutSection() {
+  const locale = useLocale();
+  const t = useTranslations("aboutSection");
+  const isId = locale === "id";
+
+  const aboutFeatures = [
+    {
+      Icon: Briefcase,
+      name: isId ? "Pengalaman Profesional" : "Professional Story",
+      description: isId
+        ? "Pengalaman terbukti mengembangkan antarmuka web responsif untuk platform pariwisata & UMKM di SIMBARRAYA menggunakan Laravel & Bootstrap, serta membangun otomasi pelaporan Tableau dan dokumentasi teknis di BPH MIGAS."
+        : "Proven track record building responsive web interfaces for MSME & tourism platforms at SIMBARRAYA with Laravel & Bootstrap, and developing automated Tableau reporting and system documentation at BPH MIGAS.",
+      href: "/#experience",
+      cta: isId ? "Jelajahi Pengalaman" : "Explore Experience",
+      className: "md:col-span-2 lg:col-span-2",
+      background: (
+        <div className="flex flex-wrap justify-end gap-1.5">
+          <span className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-0.5 text-[11px] font-semibold text-rose-700 shadow-2xs sm:text-xs sm:px-3 sm:py-1">
+            SIMBARRAYA
+          </span>
+          <span className="rounded-full border border-zinc-200 bg-zinc-100 px-2.5 py-0.5 text-[11px] font-semibold text-zinc-800 shadow-2xs sm:text-xs sm:px-3 sm:py-1">
+            BPH MIGAS
+          </span>
+        </div>
+      ),
+    },
+    {
+      Icon: Layers,
+      name: isId ? "Teknologi Utama" : "Core Tech Stack",
+      description: isId
+        ? "Membangun aplikasi berkinerja tinggi dengan Next.js 16, React 19, TypeScript, Tailwind CSS v4, state client Zustand, dan server state TanStack Query."
+        : "Crafting performant apps with Next.js 16, React 19, TypeScript, Tailwind CSS v4, Zustand client store, and TanStack Query server state.",
+      href: "/about#skills",
+      cta: isId ? "Lihat Matriks Keahlian" : "Explore Skills Matrix",
+      className: "md:col-span-1 lg:col-span-1",
+      background: (
+        <div className="flex flex-wrap justify-end gap-1.5">
+          <span className="rounded-full border border-zinc-200 bg-zinc-100 px-2.5 py-0.5 text-[11px] font-medium text-zinc-800 sm:text-xs sm:py-1">
+            React 19
+          </span>
+          <span className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-0.5 text-[11px] font-medium text-rose-700 sm:text-xs sm:py-1">
+            Next.js 16
+          </span>
+        </div>
+      ),
+    },
+    {
+      Icon: GraduationCap,
+      name: isId ? "Pendidikan & Pertumbuhan" : "Education & Growth",
+      description: isId
+        ? "Lulusan S1 & D3 Teknik Informatika Telkom University, diperkuat program Fullstack Software Engineering di RevoU yang mencakup arsitektur end-to-end."
+        : "S1 & D3 Teknik Informatika Telkom University, complemented by Fullstack Software Engineering at RevoU covering end-to-end architectures.",
+      href: "/about#education",
+      cta: isId ? "Lihat Detail Pendidikan" : "View Education Details",
+      className: "md:col-span-1 lg:col-span-1",
+      background: (
+        <div className="flex justify-end">
+          <span className="rounded-full border border-zinc-200 bg-zinc-100 px-2.5 py-0.5 text-[11px] font-medium text-zinc-800 sm:text-xs sm:px-3 sm:py-1">
+            {isId ? "Lulusan S1 & D3" : "S1 & D3 Graduate"}
+          </span>
+        </div>
+      ),
+    },
+    {
+      Icon: Award,
+      name: isId ? "Sertifikasi" : "Certifications",
+      description: isId
+        ? "Tersertifikasi dalam Oracle Database Design & SQL Programming, serta Pengembangan Frontend Web oleh Dicoding Indonesia."
+        : "Certified in Oracle Database Design & SQL Programming, and Learn Frontend Web Development by Dicoding Indonesia.",
+      href: "/about#certificates",
+      cta: isId ? "Lihat Kredensial" : "View Credentials",
+      className: "md:col-span-1 lg:col-span-1",
+      background: (
+        <div className="flex justify-end">
+          <span className="rounded-full border border-rose-200 bg-rose-50 px-2.5 py-0.5 text-[11px] font-medium text-rose-700 sm:text-xs sm:px-3 sm:py-1">
+            Oracle &amp; Dicoding
+          </span>
+        </div>
+      ),
+    },
+    {
+      Icon: Globe,
+      name: isId ? "Lokasi & Ketersediaan" : "Location & Availability",
+      description: isId
+        ? "Berbasis di Indonesia (WIB / GMT+7). Terbiasa remote, adaptif, dan siap untuk posisi full-time, kontrak, maupun proyek pilihan."
+        : "Based in Indonesia (GMT+7). Remote-friendly, highly adaptable, and available for full-time roles, contracts, or select freelance projects.",
+      href: "/#contact",
+      cta: isId ? "Hubungi Saya" : "Get In Touch",
+      className: "md:col-span-1 lg:col-span-1",
+      background: (
+        <div className="flex justify-end">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700 sm:text-xs sm:px-3 sm:py-1">
+            <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+            Online • GMT+7
+          </span>
+        </div>
+      ),
+    },
+  ];
+
   return (
     <section
       id="about"
@@ -111,15 +123,18 @@ export default function AboutSection() {
         {/* Section Header */}
         <div className="mb-16 flex flex-col items-center text-center">
           <div className="inline-flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-3.5 py-1 text-xs font-semibold text-rose-700">
-            About Me
+            {t("badge")}
           </div>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
-            A Glimpse Into My Journey & Capabilities
+            {isId
+              ? "Sekilas Tentang Perjalanan & Kemampuan Saya"
+              : "A Glimpse Into My Journey & Capabilities"}
             <span className="text-rose-600">.</span>
           </h2>
           <p className="mt-4 max-w-2xl text-base text-zinc-600 sm:text-lg">
-            Combining academic computer science foundations with modern web
-            engineering practices to deliver reliable digital solutions.
+            {isId
+              ? "Memadukan fondasi ilmu komputer akademis dengan praktik rekayasa web modern untuk menghasilkan solusi digital yang andal."
+              : "Combining academic computer science foundations with modern web engineering practices to deliver reliable digital solutions."}
           </p>
         </div>
 
@@ -140,10 +155,12 @@ export default function AboutSection() {
             )}
           >
             <span>
-              Explore Complete Profile
+              {isId ? "Lihat Profil Lengkap" : "Explore Complete Profile"}
               <span className="hidden sm:inline">
                 {" "}
-                (Bio, Education &amp; Skills)
+                {isId
+                  ? "(Bio, Pendidikan & Keahlian)"
+                  : "(Bio, Education & Skills)"}
               </span>
             </span>
             <ArrowRight className="ms-2 size-4 shrink-0" />

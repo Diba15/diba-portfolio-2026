@@ -1,6 +1,6 @@
 import type { ProjectItem } from "@/types/project";
 
-export const projectsData: ProjectItem[] = [
+export const projectsDataId: ProjectItem[] = [
   {
     id: "proj_trubrush",
     slug: "trubrush",
@@ -341,3 +341,359 @@ export const projectsData: ProjectItem[] = [
     ],
   },
 ];
+
+export const projectsDataEn: ProjectItem[] = [
+  {
+    id: "proj_trubrush",
+    slug: "trubrush",
+    title: "TruBrush",
+    category: "Fullstack",
+    featured: true,
+    summary:
+      "A human-made digital art portfolio and secure escrow commission platform with client-side canvas protection.",
+    description:
+      "TruBrush is a secure, escrow-backed digital art portfolio and commission platform dedicated exclusively to human-made creations. Equipped with work-in-progress (WIP) verification workflows, anti-scraping client-side canvas protection, in-platform digital balance withdrawals, and curator/admin management dashboards with real-time financial metrics.",
+    thumbnail: "/projects/trubrush.png",
+    gallery: [
+      "/projects/trubrush/1.png",
+      "/projects/trubrush/2.png",
+      "/projects/trubrush/3.png",
+      "/projects/trubrush/4.png",
+    ],
+    techStack: [
+      "TypeScript",
+      "Next.js 16",
+      "React 19",
+      "Tailwind CSS v4",
+      "NestJS 11",
+      "Prisma ORM",
+      "PostgreSQL",
+      "Zustand",
+      "TanStack Query v5",
+      "Playwright",
+      "Jest",
+      "Biome",
+      "Bun",
+    ],
+    liveUrl: "https://trubrush.vercel.app",
+    githubUrl: "https://github.com/Diba15/trubrush",
+    docsUrl: "https://trubrush-be.up.railway.app/docs",
+    caseStudy: {
+      overview:
+        "TruBrush is a dedicated digital art showcase and escrow-powered commission platform tailored specifically for authentic, human-made art.",
+      problemStatement:
+        "The influx of generative AI has sparked a crisis of trust regarding the authenticity of digital artwork. Meanwhile, traditional freelance art commissions are plagued by client ghosting, payment disputes, and unauthorized asset snipping before final payout.",
+      objectives: [
+        "Architect a Work-In-Progress (WIP) proof verification workflow ensuring human creation authenticity.",
+        "Implement a secure escrow commission payment system with atomic transaction isolation.",
+        "Defend visual artwork from direct browser ripping via client-side canvas protection shields.",
+        "Deliver transparent dashboards for dispute mediation, strike penalties, and financial auditing.",
+      ],
+      solution:
+        "Engineered a decoupled full-stack architecture (Next.js 16 App Router on frontend and a 4-tier NestJS 11 backend). Implemented manual curation queues for WIP verification (sketches and timelapses), database-level escrow fund isolation, and browser canvas security controls.",
+      outcomes: [
+        "Built an escrow payment engine: locking client commission funds upfront and automatically taking a 5% platform fee (artists net 95% upon milestone approval).",
+        "Constructed a multi-step curation pipeline (sketches, layer proofs, timelapse video) before artworks are showcased to public feeds.",
+        "Integrated client-side canvas defenses (automatic blur shield upon browser window defocus and right-click guard).",
+        "Developed comprehensive curator & admin portals for dispute refund arbitration, artist strike logging, and cash flow auditing.",
+      ],
+      keyAchievements: [
+        "26 NestJS + Jest Unit Test Spec Files verifying Controllers and Services across all 13 business domain modules.",
+        "7 Playwright End-to-End Test Suites validating critical user paths: RBAC, Curation, Escrow, and Sanitization.",
+        "Interactive Swagger OpenAPI documentation seamlessly deployed on Railway backend infrastructure.",
+      ],
+      impact:
+        "Provides ironclad copyright reassurance and financial peace of mind for human creators, mitigating fraud and establishing genuine trust in digital art commissioning.",
+      stackGroups: [
+        {
+          category: "Frontend",
+          items: [
+            "Next.js 16",
+            "React 19",
+            "TypeScript",
+            "Tailwind CSS v4",
+            "Zustand",
+            "TanStack Query v5",
+          ],
+        },
+        {
+          category: "Backend",
+          items: [
+            "NestJS 11",
+            "TypeScript",
+            "Prisma ORM",
+            "PostgreSQL",
+            "Bcrypt",
+            "JWT HttpOnly",
+          ],
+        },
+        {
+          category: "Testing & Quality",
+          items: [
+            "Playwright E2E",
+            "Jest Unit Testing",
+            "Biome Linter",
+            "Bun Runtime",
+          ],
+        },
+        {
+          category: "Deployment",
+          items: [
+            "Vercel (Frontend)",
+            "Railway (Backend API)",
+            "Swagger OpenAPI",
+          ],
+        },
+      ],
+      problemSolutions: [
+        {
+          idNumber: 1,
+          problem: "AI Influx & Loss of Human Artwork Visibility",
+          solution:
+            "Exclusive public feed governed by a curation system validating sketches, layers, and timelapse videos.",
+        },
+        {
+          idNumber: 2,
+          problem: "Asset Theft & Unchecked Browser Scraping",
+          solution:
+            "Automated browser defense: drag/context menu prevention, defocus window blur shield, and media streaming protection.",
+        },
+        {
+          idNumber: 3,
+          problem: "Copyright Infringement & Payment Vulnerability",
+          solution:
+            "Certified human-art labels backed by secure Escrow payments and a transparent dispute arbitration dashboard.",
+        },
+      ],
+      futurePlans: [
+        {
+          title: "Mobile Application",
+          tag: "iOS / Android",
+          description:
+            "Artist portfolio browsing and direct commission order management via native mobile apps.",
+        },
+        {
+          title: "Automated AI Detection",
+          tag: "Machine Learning",
+          description:
+            "Computer vision ML pipeline to flag initial indicators of generative AI artifacts automatically.",
+        },
+        {
+          title: "Glaze Data Cloaking",
+          tag: "AI Protect",
+          description:
+            "Integration of style-cloaking filters (Glaze) shielding art styles from unauthorized model scraping.",
+        },
+        {
+          title: "Creator Membership Tier",
+          tag: "Premium",
+          description:
+            "Monthly subscription for advanced business analytics, priority curation queues, and verified pro badges.",
+        },
+        {
+          title: "Global Marketplace",
+          tag: "Multi-currency",
+          description:
+            "Cross-border payment gateway support with automated exchange rates and localized payouts.",
+        },
+      ],
+    },
+    features: [
+      "Escrow-based Commission Ordering & Milestone Progress Tracking",
+      "Human-Made Art Curation & WIP Verification Workflow",
+      "Client-side Artwork Protection (Canvas Blur on Focus Loss & Right-Click Guard)",
+      "Digital Wallet for Client Payments & Artist Withdrawals",
+      "Curator & Admin Dashboard for Dispute Mediation & Audit Logs",
+      "Financial Reporting (GMV, Escrow Balance, 5% Platform Fee & CSV Export)",
+    ],
+  },
+  {
+    id: "proj_revoshop",
+    slug: "revoshop",
+    title: "Revoshop",
+    category: "Fullstack",
+    featured: true,
+    summary:
+      "Modern e-commerce platform featuring interactive cart state, checkout simulation, and role-based authentication.",
+    description:
+      "Revoshop is a modern online store web application engineered for RevoU Fullstack Software Engineering Milestone 3. Powered by Next.js 16, React 19, TypeScript, and Tailwind CSS under the Bun runtime, it integrates with Platzi Fake Store API for dynamic catalog queries, dual-role RBAC authentication (Admin & User), and an end-to-end purchasing workflow from cart management to simulated checkout.",
+    thumbnail: "/projects/revoshop.png",
+    gallery: [
+      "/projects/revoshop/1.png",
+      "/projects/revoshop/2.png",
+      "/projects/revoshop/3.png",
+      "/projects/revoshop/4.png",
+      "/projects/revoshop/5.png",
+    ],
+    techStack: [
+      "TypeScript",
+      "Next.js",
+      "React 19",
+      "Tailwind CSS",
+      "Bun",
+      "Axios",
+      "Platzi Store API",
+      "bcryptjs",
+    ],
+    liveUrl: "https://milestone-3-diba15.vercel.app/",
+    githubUrl: "https://github.com/Diba15/revoshop-Diba15",
+    caseStudy: {
+      overview:
+        "Revoshop is a full-featured e-commerce web application built to showcase modern state architecture and authentication patterns.",
+      problemStatement:
+        "Many shopping interfaces struggle with desynchronized cart states across navigation, a lack of clear separation between customer and administrator privileges (RBAC), and fragile error handling against third-party API disruptions.",
+      objectives: [
+        "Build a reactive, persistent shopping cart state synchronized throughout page navigation.",
+        "Implement secure Role-Based Access Control (RBAC) protecting customer and administrative views.",
+        "Deliver a complete Admin Product Management dashboard with full CRUD capabilities.",
+      ],
+      solution:
+        "Created a modular Next.js application leveraging Bun for ultra-fast performance, centralized cart mutations around a single source of truth, secured admin routes using bcryptjs hashing, and safeguarded external API communication with graceful fallbacks.",
+      outcomes: [
+        "Full cart management suite: item addition, quantity increments, individual removals, and instant subtotal recalculations.",
+        "Simulated multi-step checkout workflow complete with form validation and responsive sonner notifications.",
+        "Dual-role authentication (Admin & User) with salted password hashing and protected route middleware.",
+        "Dedicated Admin Product Management interface enabling full CRUD manipulation against the Platzi catalog API.",
+      ],
+      keyAchievements: [
+        "Secure role-based access control with robust bcryptjs password encryption.",
+        "Zero unhandled runtime state errors across shopping cart and simulated checkout journeys.",
+        "Fast rendering metrics powered by Bun runtime and responsive Tailwind CSS layouts.",
+      ],
+      impact:
+        "Demonstrates complete mastery over e-commerce state dynamics, high-reliability cart management, and enterprise-grade authentication standards.",
+      stackGroups: [
+        {
+          category: "Frontend",
+          items: [
+            "Next.js 16",
+            "React 19",
+            "TypeScript",
+            "Tailwind CSS",
+            "Axios",
+          ],
+        },
+        {
+          category: "Backend & Data",
+          items: [
+            "Platzi Fake Store API",
+            "bcryptjs Authentication",
+            "JSON Data Modeling",
+          ],
+        },
+        {
+          category: "Tools & Quality",
+          items: ["Bun Runtime", "Biome Linter", "Component-Driven UI"],
+        },
+        {
+          category: "Deployment",
+          items: ["Vercel Deployment"],
+        },
+      ],
+    },
+    features: [
+      "Interactive Cart System (Add, Quantity Adjust, Clear & Remove)",
+      "Simulated Checkout Flow with Toast Notifications",
+      "Role-based Authentication (Admin & User Roles)",
+      "Admin Product Management (CRUD Operations)",
+      "Product Search & Multi-category Filtering",
+    ],
+  },
+  {
+    id: "proj_todos_app",
+    slug: "todos-app",
+    title: "Todos Apps",
+    category: "Frontend",
+    featured: true,
+    summary:
+      "Interactive task management web app with persistent browser local storage and reactive filtering.",
+    description:
+      "A fast task management application crafted with Vue.js 3 and Tailwind CSS. Employs browser local storage for client-side data persistence, ensuring that user tasks remain secure and readily accessible across browser restarts without server latency.",
+    thumbnail: "/projects/todos-app.png",
+    gallery: [
+      "/projects/todos-app/1.png",
+      "/projects/todos-app/2.png",
+      "/projects/todos-app/3.png",
+    ],
+    techStack: [
+      "Vue.js 3",
+      "Tailwind CSS",
+      "Vite",
+      "JavaScript",
+      "date-fns",
+      "notivue",
+      "LocalStorage API",
+    ],
+    liveUrl: "https://todos-app-peach.vercel.app/",
+    githubUrl: "https://github.com/Diba15/diba-todos-app",
+    caseStudy: {
+      overview:
+        "A lightweight, interactive task productivity application delivering instant client-side data persistence with zero backend overhead.",
+      problemStatement:
+        "Many to-do apps demand mandatory account registration or suffer data loss on refresh. The absence of multi-criteria category and temporal deadlines frequently complicates task prioritization for users.",
+      objectives: [
+        "Provide a zero-friction task management tool requiring no sign-in or server connection latency.",
+        "Guarantee 100% data retention directly in client storage via the Browser LocalStorage API.",
+        "Deliver reactive multi-category and time-based filters (Today, Tomorrow, Week, Month).",
+      ],
+      solution:
+        "Adopted Vue 3 Composition API (Script Setup) for granular reactivity, encapsulated LocalStorage with initial seed states, and integrated date-fns and notivue for fluid feedback.",
+      outcomes: [
+        "Automatic LocalStorage synchronization layer executing on every task creation, update, or deletion.",
+        "Multi-dimensional filtering system: Categories (Work, Personal, Shopping, Others) and Temporal horizons (Today, Tomorrow, Week, Month).",
+        "Complete CRUD lifecycle: inline editing, visual priority tags, and single-click completion toggling.",
+        "Integration of swipeable interactive toasts (notivue) and smooth layout transitions.",
+      ],
+      keyAchievements: [
+        "100% client-side data retention with zero lost tasks on restart or refresh.",
+        "Sub-millisecond filter latency powered by Vue computed property memoization.",
+        "Ultra-lightweight bundle size with absolute zero backend dependencies.",
+      ],
+      impact:
+        "Delivers an instant, private, and distraction-free daily productivity aid accessible immediately from any web browser.",
+      stackGroups: [
+        {
+          category: "Frontend",
+          items: [
+            "Vue.js 3 (Composition API)",
+            "Tailwind CSS",
+            "JavaScript ES6+",
+            "HTML5",
+          ],
+        },
+        {
+          category: "Libraries & APIs",
+          items: ["LocalStorage API", "date-fns", "notivue Notification"],
+        },
+        {
+          category: "Tools & Build",
+          items: ["Vite", "ESLint", "PostCSS"],
+        },
+        {
+          category: "Deployment",
+          items: ["Vercel"],
+        },
+      ],
+    },
+    features: [
+      "Persistent Task Storage using Browser LocalStorage",
+      "Category & Status Filtering (Work, Personal, Today)",
+      "Instant Task Creation, Editing & Completion Toggling",
+      "Clean Dashboard Layout with Search Filter",
+    ],
+  },
+];
+
+export function getProjectsData(locale: string = "en"): ProjectItem[] {
+  return locale === "id" ? projectsDataId : projectsDataEn;
+}
+
+export function getProjectBySlug(
+  slug: string,
+  locale: string = "en",
+): ProjectItem | undefined {
+  const projects = getProjectsData(locale);
+  return projects.find((p) => p.slug === slug);
+}
+
+export const projectsData = projectsDataEn;

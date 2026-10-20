@@ -1,10 +1,28 @@
+"use client";
+
 import { Building2, Calendar } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Card } from "@/components/ui/card";
-import { experienceData } from "@/data/experienceData";
+import { getExperienceData } from "@/data/experienceData";
 
 export default function ExperienceSection() {
+  const locale = useLocale();
+  const t = useTranslations("experienceSection");
+  const experiences = getExperienceData(locale);
+  const isId = locale === "id";
+
+  const getLocalizedType = (type: string) => {
+    if (!isId) return type;
+    if (type === "Contract") return "Kontrak";
+    if (type === "Internship") return "Magang";
+    if (type === "Full-time") return "Purna Waktu";
+    if (type === "Part-time") return "Paruh Waktu";
+    if (type === "Freelance") return "Lepas";
+    return type;
+  };
+
   return (
     <section
       id="experience"
@@ -14,20 +32,20 @@ export default function ExperienceSection() {
         {/* Section Header */}
         <div className="mb-16 flex flex-col items-center text-center">
           <div className="inline-flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-3.5 py-1 text-xs font-semibold text-rose-700">
-            Career Journey
+            {t("badge")}
           </div>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
-            Work Experience & History<span className="text-rose-600">.</span>
+            {t("title")}
+            <span className="text-rose-600">.</span>
           </h2>
           <p className="mt-4 max-w-2xl text-base text-zinc-600 sm:text-lg">
-            A chronological timeline of my professional roles, engineering
-            responsibilities, and technical contributions.
+            {t("subtitle")}
           </p>
         </div>
 
         {/* Vertical Timeline */}
         <div className="relative ml-4 space-y-12 border-l-2 border-rose-200 pl-6 sm:ml-8 sm:pl-10">
-          {experienceData.map((exp, index) => (
+          {experiences.map((exp, index) => (
             <BlurFade key={exp.id} delay={0.15 * index} inView>
               <div className="group relative">
                 {/* Node point */}
@@ -55,7 +73,7 @@ export default function ExperienceSection() {
                           exp.type === "Contract" ? "crimson" : "secondary"
                         }
                       >
-                        {exp.type}
+                        {getLocalizedType(exp.type)}
                       </Badge>
                     </div>
                   </div>
@@ -73,7 +91,7 @@ export default function ExperienceSection() {
                   {/* Tech stack badges */}
                   <div className="mt-6 flex flex-wrap items-center gap-2 border-t border-zinc-100 pt-5">
                     <span className="mr-1 text-xs font-semibold text-zinc-500">
-                      Technologies:
+                      {isId ? "Teknologi:" : "Technologies:"}
                     </span>
                     {exp.techStack.map((tech) => (
                       <Badge

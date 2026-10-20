@@ -1,15 +1,23 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { GithubIcon } from "@/assets/icons";
 import { Badge } from "@/components/ui/badge";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { MagicCard } from "@/components/ui/magic-card";
-import { projectsData } from "@/data/projectsData";
+import { getProjectsData } from "@/data/projectsData";
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 export default function ProjectsSection() {
+  const locale = useLocale();
+  const t = useTranslations("projectsSection");
+  const projects = getProjectsData(locale);
+  const isId = locale === "id";
+
   return (
     <section
       id="projects"
@@ -19,22 +27,22 @@ export default function ProjectsSection() {
         {/* Section Header */}
         <div className="mb-16 flex flex-col items-center text-center">
           <div className="inline-flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-3.5 py-1 text-xs font-semibold text-rose-700">
-            Featured Projects
+            {t("badge")}
           </div>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
-            Selected Applications & Platforms
+            {isId
+              ? "Aplikasi & Platform Pilihan"
+              : "Selected Applications & Platforms"}
             <span className="text-rose-600">.</span>
           </h2>
           <p className="mt-4 max-w-2xl text-base text-zinc-600 sm:text-lg">
-            A curated showcase of applications I&apos;ve built, ranging from
-            fullstack escrow solutions to client-side persistent productivity
-            tools.
+            {t("subtitle")}
           </p>
         </div>
 
         {/* 3 Featured Projects Grid */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {projectsData.map((project, index) => (
+          {projects.map((project, index) => (
             <BlurFade key={project.id} delay={0.15 * index} inView>
               <Card className="group flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-zinc-200/80 bg-white shadow-xs transition-all duration-300 hover:border-zinc-300 hover:shadow-lg">
                 {/* Visual Header / Mockup Preview */}
@@ -74,7 +82,7 @@ export default function ProjectsSection() {
                         {project.category}
                       </Badge>
                       <span className="text-xs font-medium text-zinc-400">
-                        Featured
+                        {isId ? "Unggulan" : "Featured"}
                       </span>
                     </div>
 
@@ -111,7 +119,7 @@ export default function ProjectsSection() {
                       "w-full rounded-xl font-semibold shadow-xs transition-all hover:shadow-md",
                     )}
                   >
-                    View Project Details
+                    {t("viewCaseStudy")}
                     <ArrowRight className="ms-2 size-4" />
                   </Link>
                 </div>
@@ -132,11 +140,14 @@ export default function ProjectsSection() {
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h3 className="text-lg font-bold text-zinc-900 sm:text-xl">
-                  Want to explore more repositories & experiments?
+                  {isId
+                    ? "Tertarik melihat repositori & eksperimen lainnya?"
+                    : "Want to explore more repositories & experiments?"}
                 </h3>
                 <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-zinc-600">
-                  Browse through all my open-source projects, algorithms, and
-                  development repositories on GitHub.
+                  {isId
+                    ? "Jelajahi seluruh proyek sumber terbuka, algoritma, dan repositori pengembangan saya di GitHub."
+                    : "Browse through all my open-source projects, algorithms, and development repositories on GitHub."}
                 </p>
               </div>
               <div className="shrink-0">
@@ -149,9 +160,8 @@ export default function ProjectsSection() {
                     "rounded-full px-6 shadow-sm transition-all hover:shadow-md",
                   )}
                 >
-                  <GithubIcon className="mr-2 size-4" />
-                  Explore on GitHub
-                  <ArrowRight className="ml-2 size-4" />
+                  <GithubIcon className="mr-2 size-5" />
+                  <span>GitHub Profile</span>
                 </a>
               </div>
             </div>

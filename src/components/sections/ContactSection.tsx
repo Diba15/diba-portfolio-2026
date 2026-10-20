@@ -9,6 +9,7 @@ import {
   Send,
   Sparkles,
 } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { type SubmitEvent, useState } from "react";
 import { toast } from "sonner";
 import { GithubIcon, InstagramIcon, LinkedinIcon } from "@/assets/icons";
@@ -19,10 +20,15 @@ import { Dock, DockIcon } from "@/components/ui/dock";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
-import { profileData } from "@/data/profileData";
+import { getProfileData } from "@/data/profileData";
 import { sendContactEmail } from "@/lib/contact";
 
 export default function ContactSection() {
+  const locale = useLocale();
+  const t = useTranslations("contactSection");
+  const profile = getProfileData(locale);
+  const isId = locale === "id";
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -34,11 +40,19 @@ export default function ContactSection() {
 
     const plainText = message.replace(/<[^>]*>/g, "").trim();
     if (!name.trim() || !email.trim() || !subject.trim()) {
-      toast.error("Please fill in all required fields.");
+      toast.error(
+        isId
+          ? "Harap isi semua kolom yang diperlukan."
+          : "Please fill in all required fields.",
+      );
       return;
     }
     if (!plainText) {
-      toast.error("Please write a message before sending.");
+      toast.error(
+        isId
+          ? "Harap tulis pesan terlebih dahulu."
+          : "Please write a message before sending.",
+      );
       return;
     }
 
@@ -52,18 +66,16 @@ export default function ContactSection() {
       });
 
       if (result.success) {
-        toast.success(
-          "Thank you! Your message has been sent successfully. I will get back to you soon.",
-        );
+        toast.success(t("form.successDesc"));
         setName("");
         setEmail("");
         setSubject("");
         setMessage("");
       } else {
-        toast.error(result.error ?? "Failed to send message.");
+        toast.error(result.error ?? t("form.errorDesc"));
       }
     } catch {
-      toast.error("Something went wrong. Please try again later.");
+      toast.error(t("form.errorDesc"));
     } finally {
       setIsSubmitting(false);
     }
@@ -78,16 +90,14 @@ export default function ContactSection() {
         {/* Section Header */}
         <div className="mb-16 flex flex-col items-center text-center">
           <div className="inline-flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-3.5 py-1 text-xs font-semibold text-rose-700">
-            Get In Touch
+            {t("badge")}
           </div>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
-            Let&apos;s Connect & Build Together
+            {t("title")}
             <span className="text-rose-600">.</span>
           </h2>
           <p className="mt-4 max-w-2xl text-base text-zinc-600 sm:text-lg">
-            Have a project opportunity, a question, or want to discuss modern
-            web development? Feel free to send a message or connect through
-            social channels.
+            {t("subtitle")}
           </p>
         </div>
 
@@ -97,11 +107,12 @@ export default function ContactSection() {
             <BlurFade delay={0.1} inView>
               <div>
                 <h3 className="text-2xl font-bold tracking-tight text-zinc-900">
-                  Contact Information
+                  {isId ? "Informasi Kontak" : "Contact Information"}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-                  I&apos;m currently open to full-time roles, contracts, and
-                  selected freelance web projects.
+                  {isId
+                    ? "Saya terbuka untuk posisi full-time, kontrak, maupun proyek rekayasa web terpilih."
+                    : "I'm currently open to full-time roles, contracts, and selected freelance web projects."}
                 </p>
 
                 {/* Info List */}
@@ -112,13 +123,13 @@ export default function ContactSection() {
                     </div>
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                        Email Address
+                        {isId ? "Alamat Email" : "Email Address"}
                       </p>
                       <a
-                        href={`mailto:${profileData.email}`}
+                        href={`mailto:${profile.email}`}
                         className="mt-0.5 text-sm font-medium text-zinc-900 hover:text-rose-600 transition-colors"
                       >
-                        {profileData.email}
+                        {profile.email}
                       </a>
                     </div>
                   </div>
@@ -129,10 +140,10 @@ export default function ContactSection() {
                     </div>
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                        Location
+                        {isId ? "Lokasi" : "Location"}
                       </p>
                       <p className="mt-0.5 text-sm font-medium text-zinc-900">
-                        {profileData.location} (Remote-Friendly • GMT+7)
+                        {profile.location} (Remote-Friendly • GMT+7)
                       </p>
                     </div>
                   </div>
@@ -143,10 +154,12 @@ export default function ContactSection() {
                     </div>
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                        Response Time
+                        {isId ? "Waktu Respons" : "Response Time"}
                       </p>
                       <p className="mt-0.5 text-sm font-medium text-zinc-900">
-                        Typically responds within 24 hours
+                        {isId
+                          ? "Biasanya merespons dalam waktu 24 jam"
+                          : "Typically responds within 24 hours"}
                       </p>
                     </div>
                   </div>
@@ -156,10 +169,16 @@ export default function ContactSection() {
                 <div className="mt-12 rounded-2xl border border-zinc-200/80 bg-zinc-50/50 p-6">
                   <div className="flex items-center gap-2 text-sm font-semibold text-zinc-900">
                     <Sparkles className="size-4 text-rose-600" />
-                    <span>Connect On Social Media</span>
+                    <span>
+                      {isId
+                        ? "Terhubung di Media Sosial"
+                        : "Connect On Social Media"}
+                    </span>
                   </div>
                   <p className="mt-1 text-xs text-zinc-500">
-                    Hover over icons to expand and visit profile links.
+                    {isId
+                      ? "Arahkan kursor ke ikon untuk melihat tautan profil."
+                      : "Hover over icons to expand and visit profile links."}
                   </p>
 
                   {/* Magic UI Dock */}
@@ -171,7 +190,7 @@ export default function ContactSection() {
                       {/* Email Dock */}
                       <DockIcon className="hover:bg-rose-50">
                         <a
-                          href={`mailto:${profileData.email}`}
+                          href={`mailto:${profile.email}`}
                           className="flex size-full items-center justify-center text-zinc-700 hover:text-rose-600 transition-colors"
                           aria-label="Send Email"
                         >
@@ -182,7 +201,7 @@ export default function ContactSection() {
                       {/* GitHub Dock */}
                       <DockIcon className="hover:bg-rose-50">
                         <a
-                          href={profileData.socials.github}
+                          href={profile.socials.github}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex size-full items-center justify-center text-zinc-700 hover:text-rose-600 transition-colors"
@@ -195,7 +214,7 @@ export default function ContactSection() {
                       {/* LinkedIn Dock */}
                       <DockIcon className="hover:bg-rose-50">
                         <a
-                          href={profileData.socials.linkedin}
+                          href={profile.socials.linkedin}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex size-full items-center justify-center text-zinc-700 hover:text-rose-600 transition-colors"
@@ -208,7 +227,7 @@ export default function ContactSection() {
                       {/* Instagram Dock */}
                       <DockIcon className="hover:bg-rose-50">
                         <a
-                          href={profileData.socials.instagram}
+                          href={profile.socials.instagram}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex size-full items-center justify-center text-zinc-700 hover:text-rose-600 transition-colors"
@@ -233,7 +252,7 @@ export default function ContactSection() {
                     <MessageSquare className="size-4" />
                   </div>
                   <h3 className="text-xl font-bold text-zinc-900">
-                    Send a Direct Message
+                    {isId ? "Kirim Pesan Langsung" : "Send a Direct Message"}
                   </h3>
                 </div>
 
@@ -242,13 +261,13 @@ export default function ContactSection() {
                     {/* Name */}
                     <div className="space-y-2">
                       <Label htmlFor="name" className="text-xs font-semibold">
-                        Your Name
+                        {t("form.name")}
                       </Label>
                       <Input
                         id="name"
                         name="name"
                         type="text"
-                        placeholder="John Doe"
+                        placeholder={t("form.namePlaceholder")}
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -259,13 +278,13 @@ export default function ContactSection() {
                     {/* Email */}
                     <div className="space-y-2">
                       <Label htmlFor="email" className="text-xs font-semibold">
-                        Your Email
+                        {t("form.email")}
                       </Label>
                       <Input
                         id="email"
                         name="email"
                         type="email"
-                        placeholder="john@example.com"
+                        placeholder={t("form.emailPlaceholder")}
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -277,13 +296,13 @@ export default function ContactSection() {
                   {/* Subject */}
                   <div className="space-y-2">
                     <Label htmlFor="subject" className="text-xs font-semibold">
-                      Subject
+                      {t("form.subject")}
                     </Label>
                     <Input
                       id="subject"
                       name="subject"
                       type="text"
-                      placeholder="Project Inquiry / Job Opportunity"
+                      placeholder={t("form.subjectPlaceholder")}
                       required
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
@@ -294,12 +313,12 @@ export default function ContactSection() {
                   {/* Message */}
                   <div className="space-y-2">
                     <Label className="text-xs font-semibold">
-                      Message (Rich Text)
+                      {t("form.message")}
                     </Label>
                     <RichTextEditor
                       content={message}
                       onChange={setMessage}
-                      placeholder="Hi Dimas, I would love to discuss a project with you..."
+                      placeholder={t("form.messagePlaceholder")}
                       disabled={isSubmitting}
                     />
                   </div>
@@ -313,12 +332,12 @@ export default function ContactSection() {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="mr-2 size-4 animate-spin" />
-                        Sending Message...
+                        {t("form.sending")}
                       </>
                     ) : (
                       <>
                         <Send className="mr-2 size-4" />
-                        Send Message
+                        {t("form.send")}
                       </>
                     )}
                   </Button>

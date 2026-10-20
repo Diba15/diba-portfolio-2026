@@ -13,7 +13,7 @@ import {
   MapPin,
   Sparkles,
 } from "lucide-react";
-import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { buttonVariants } from "@/components/ui/button";
@@ -22,11 +22,34 @@ import { Highlighter } from "@/components/ui/highlighter";
 import { MagicCard } from "@/components/ui/magic-card";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { certificationData, educationData, skillsData } from "@/data/aboutData";
-import { profileData } from "@/data/profileData";
+import {
+  getCertificationData,
+  getEducationData,
+  getSkillsData,
+} from "@/data/aboutData";
+import { getProfileData } from "@/data/profileData";
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 export default function AboutPage() {
+  const locale = useLocale();
+  const t = useTranslations("aboutPage");
+  const isId = locale === "id";
+
+  const profile = getProfileData(locale);
+  const education = getEducationData(locale);
+  const certifications = getCertificationData(locale);
+  const skills = getSkillsData(locale);
+
+  const getLocalizedSkillLevel = (level?: string) => {
+    if (!level) return "";
+    if (!isId) return level;
+    if (level === "Advanced") return "Mahir";
+    if (level === "Intermediate") return "Menengah";
+    if (level === "Beginner") return "Pemula";
+    return level;
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
@@ -41,7 +64,7 @@ export default function AboutPage() {
               )}
             >
               <ArrowLeft className="mr-2 size-4" />
-              Back to Home
+              {t("backHome")}
             </Link>
           </div>
         </BlurFade>
@@ -52,31 +75,31 @@ export default function AboutPage() {
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-1.5 rounded-full border border-rose-200 bg-rose-50 px-3.5 py-1 text-xs font-semibold text-rose-700">
                 <Sparkles className="size-3.5" />
-                About Me
+                {t("badge")}
               </div>
               <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-zinc-900 sm:text-5xl">
-                {profileData.fullName}
+                {profile.fullName}
                 <span className="text-rose-600">.</span>
               </h1>
               <p className="mt-2 text-lg font-medium text-rose-600">
-                {profileData.title} • Nickname: &quot;{profileData.nickName}
-                &quot;
+                {profile.title} • {isId ? "Panggilan" : "Nickname"}: &quot;
+                {profile.nickName}&quot;
               </p>
               <p className="mt-4 text-base leading-relaxed text-zinc-600 sm:text-lg">
-                {profileData.headline}
+                {profile.headline}
               </p>
 
               {/* Status Badges */}
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
                   <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-                  {profileData.availability}
+                  {profile.availability}
                 </span>
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-700">
                   <MapPin className="size-3 text-zinc-500" />
-                  {profileData.location} (GMT+7)
+                  {profile.location} (GMT+7)
                 </span>
-                {profileData.languages?.map((lang) => (
+                {profile.languages?.map((lang) => (
                   <span
                     key={lang.language}
                     className="inline-flex items-center gap-1 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600"
@@ -104,60 +127,106 @@ export default function AboutPage() {
         <BlurFade delay={0.15} inView>
           <section className="space-y-6">
             <h2 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
-              Biography & Engineering Philosophy
+              {isId
+                ? "Biografi & Filosofi Rekayasa Software"
+                : "Biography & Engineering Philosophy"}
             </h2>
             <div className="space-y-4 text-base leading-relaxed text-zinc-600">
-              <p>
-                I am an Informatics graduate who values{" "}
-                <Highlighter action="highlight" color="#fecdd3" isView>
-                  user empathy, clarity, and clean, maintainable code
-                </Highlighter>
-                . I worked as a Frontend Developer at SIMBARRAYA, completed a
-                Technical Writer internship at BPH MIGAS, and built full-stack
-                projects in the RevoU Full-Stack Software Engineer program. At
-                SIMBARRAYA, I built responsive, device-friendly interfaces with
-                Laravel and Bootstrap, working closely with design and backend
-                teams to improve performance and usability. My strengths include
-                React, Next.js, TypeScript, and PostgreSQL, alongside
-                collaboration and clear communication. I{" "}
-                <Highlighter
-                  action="underline"
-                  color="#f43f5e"
-                  strokeWidth={2}
-                  isView
-                >
-                  use AI responsibly
-                </Highlighter>{" "}
-                to speed up development while reviewing and understanding every
-                change, and I&apos;m eager to contribute as a
-                frontend/full-stack developer.
-              </p>
-              <p>
-                My development workflow centers around building{" "}
-                <Highlighter
-                  action="underline"
-                  color="#f43f5e"
-                  strokeWidth={2}
-                  isView
-                >
-                  reliable, type-safe, and highly accessible
-                </Highlighter>{" "}
-                user interfaces. I strongly value{" "}
-                <Highlighter action="highlight" color="#fef08a" isView>
-                  clean architecture principles (SOLID &amp; DRY)
-                </Highlighter>{" "}
-                paired with pragmatic minimalism (KISS &amp; YAGNI). Every
-                component is crafted with consideration for performance, search
-                visibility, and seamless interaction design.
-              </p>
-              <p>
-                Whether architecting dynamic single-page applications or
-                integrating robust REST APIs, I prioritize{" "}
-                <Highlighter action="highlight" color="#fecdd3" isView>
-                  delightful end-user experiences
-                </Highlighter>{" "}
-                and maintainable, scalable codebases.
-              </p>
+              {isId ? (
+                <>
+                  <p>
+                    Saya adalah lulusan Teknik Informatika yang sangat
+                    menghargai{" "}
+                    <Highlighter action="highlight" color="#fecdd3" isView>
+                      empati pengguna, kejelasan kode, dan struktur yang mudah
+                      dirawat
+                    </Highlighter>
+                    . Berpengalaman sebagai Frontend Developer di SIMBARRAYA,
+                    menyelesaikan magang Technical Writer di BPH MIGAS, dan
+                    mengembangkan solusi full-stack pada program RevoU
+                    Full-Stack Software Engineering. Di SIMBARRAYA, saya
+                    membangun antarmuka web responsif dengan Laravel dan
+                    Bootstrap, bekerja sama erat dengan desainer dan tim backend
+                    untuk mengoptimalkan pengalaman pengguna.
+                  </p>
+                  <p>
+                    Keahlian utama saya mencakup ekosistem React, Next.js,
+                    TypeScript, NestJS, dan PostgreSQL, dipadukan dengan
+                    komunikasi tim yang terbuka. Saya{" "}
+                    <Highlighter
+                      action="underline"
+                      color="#f43f5e"
+                      strokeWidth={2}
+                      isView
+                    >
+                      memanfaatkan AI secara bertanggung jawab
+                    </Highlighter>{" "}
+                    untuk mempercepat pengembangan dengan tetap memahami dan
+                    menguji setiap baris kode secara menyeluruh.
+                  </p>
+                  <p>
+                    Alur kerja rekayasa saya berorientasi pada pembangunan
+                    antarmuka yang{" "}
+                    <Highlighter
+                      action="underline"
+                      color="#f43f5e"
+                      strokeWidth={2}
+                      isView
+                    >
+                      andal, type-safe, dan aksesibel
+                    </Highlighter>
+                    . Saya menjunjung prinsip arsitektur bersih (SOLID &amp;
+                    DRY) dengan pendekatan minimalis pragmatis (KISS &amp;
+                    YAGNI).
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p>
+                    I am an Informatics graduate who values{" "}
+                    <Highlighter action="highlight" color="#fecdd3" isView>
+                      user empathy, clarity, and clean, maintainable code
+                    </Highlighter>
+                    . I worked as a Frontend Developer at SIMBARRAYA, completed
+                    a Technical Writer internship at BPH MIGAS, and built
+                    full-stack projects in the RevoU Full-Stack Software
+                    Engineer program. At SIMBARRAYA, I built responsive,
+                    device-friendly interfaces with Laravel and Bootstrap,
+                    working closely with design and backend teams to improve
+                    performance and usability.
+                  </p>
+                  <p>
+                    My core strengths include React, Next.js, TypeScript, and
+                    PostgreSQL, alongside collaboration and clear communication.
+                    I{" "}
+                    <Highlighter
+                      action="underline"
+                      color="#f43f5e"
+                      strokeWidth={2}
+                      isView
+                    >
+                      use AI responsibly
+                    </Highlighter>{" "}
+                    to accelerate development while reviewing and understanding
+                    every change, and I&apos;m eager to contribute as a
+                    frontend/full-stack developer.
+                  </p>
+                  <p>
+                    My development workflow centers around building{" "}
+                    <Highlighter
+                      action="underline"
+                      color="#f43f5e"
+                      strokeWidth={2}
+                      isView
+                    >
+                      reliable, type-safe, and highly accessible
+                    </Highlighter>{" "}
+                    user interfaces. I strongly value clean architecture
+                    principles (SOLID &amp; DRY) paired with pragmatic
+                    minimalism (KISS &amp; YAGNI).
+                  </p>
+                </>
+              )}
             </div>
           </section>
         </BlurFade>
@@ -170,19 +239,20 @@ export default function AboutPage() {
             <div>
               <div className="flex items-center gap-2 text-rose-600 font-semibold text-sm">
                 <GraduationCap className="size-5" />
-                <span>Academic Journey</span>
+                <span>{isId ? "Jejak Akademis" : "Academic Journey"}</span>
               </div>
               <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
-                Education
+                {t("educationTitle")}
               </h2>
               <p className="mt-2 text-sm text-zinc-600">
-                Formal computer science degrees and specialized software
-                engineering training.
+                {isId
+                  ? "Pendidikan formal ilmu komputer dan pelatihan intensif rekayasa perangkat lunak."
+                  : "Formal computer science degrees and specialized software engineering training."}
               </p>
             </div>
 
             <div className="space-y-6">
-              {educationData.map((edu) => (
+              {education.map((edu) => (
                 <Card
                   key={edu.id}
                   className="overflow-hidden rounded-2xl border border-zinc-200/80 bg-white shadow-xs transition-shadow hover:shadow-md"
@@ -205,7 +275,7 @@ export default function AboutPage() {
                       <div className="flex flex-wrap items-center gap-2">
                         {edu.gpa && (
                           <span className="inline-flex w-fit items-center rounded-full border border-rose-200 bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-700 shadow-2xs">
-                            GPA: {edu.gpa}
+                            {t("gpa")}: {edu.gpa}
                           </span>
                         )}
                         <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-semibold text-zinc-700">
@@ -227,11 +297,11 @@ export default function AboutPage() {
                       </ul>
                     )}
 
-                    {/* Undergraduate Thesis */}
+                    {/* Thesis */}
                     {edu.thesis && (
                       <div className="mt-4 rounded-xl border border-rose-100 bg-rose-50/40 p-3.5 text-xs leading-relaxed text-zinc-700">
                         <span className="font-semibold text-zinc-900">
-                          Undergraduate Thesis:{" "}
+                          {t("thesis")}:{" "}
                         </span>
                         <span className="italic font-medium text-zinc-800">
                           &ldquo;{edu.thesis}&rdquo;
@@ -243,7 +313,7 @@ export default function AboutPage() {
                     {edu.finalProject && (
                       <div className="mt-4 rounded-xl border border-rose-100 bg-rose-50/40 p-3.5 text-xs leading-relaxed text-zinc-700">
                         <span className="font-semibold text-zinc-900">
-                          Final Project:{" "}
+                          {t("finalProject")}:{" "}
                         </span>
                         <span className="italic font-medium text-zinc-800">
                           &ldquo;{edu.finalProject}&rdquo;
@@ -280,19 +350,22 @@ export default function AboutPage() {
             <div>
               <div className="flex items-center gap-2 text-rose-600 font-semibold text-sm">
                 <Award className="size-5" />
-                <span>Verified Credentials</span>
+                <span>
+                  {isId ? "Kredensial Terverifikasi" : "Verified Credentials"}
+                </span>
               </div>
               <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
-                Certifications &amp; Licenses
+                {t("certificationsTitle")}
               </h2>
               <p className="mt-2 text-sm text-zinc-600">
-                Official certifications in relational database systems and
-                software design principles.
+                {isId
+                  ? "Sertifikasi resmi dalam sistem basis data relasional dan rekayasa frontend web."
+                  : "Official certifications in relational database systems and frontend engineering."}
               </p>
             </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {certificationData.map((cert) => (
+              {certifications.map((cert) => (
                 <MagicCard
                   key={cert.id}
                   gradientColor="#ffe4e6"
@@ -341,7 +414,7 @@ export default function AboutPage() {
                         )}
                       >
                         <ExternalLink className="mr-1.5 size-3.5" />
-                        Verify Credential
+                        {t("viewCertificate")}
                       </a>
                     </div>
                   )}
@@ -359,14 +432,17 @@ export default function AboutPage() {
             <div>
               <div className="flex items-center gap-2 text-rose-600 font-semibold text-sm">
                 <Code2 className="size-5" />
-                <span>Technical Capabilities</span>
+                <span>
+                  {isId ? "Keahlian Teknis" : "Technical Capabilities"}
+                </span>
               </div>
               <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
-                Comprehensive Skills Matrix
+                {t("techStackTitle")}
               </h2>
               <p className="mt-2 text-sm text-zinc-600">
-                Categorized overview of frameworks, languages, tools, and
-                architectural workflows.
+                {isId
+                  ? "Kategori komprehensif bahasa pemrograman, framework, basis data, dan prinsip rekayasa."
+                  : "Categorized overview of frameworks, languages, tools, and architectural workflows."}
               </p>
             </div>
 
@@ -376,9 +452,9 @@ export default function AboutPage() {
                   value="all"
                   className="rounded-lg px-4 py-2 text-xs font-semibold data-[state=active]:bg-white data-[state=active]:text-rose-600 data-[state=active]:shadow-xs"
                 >
-                  All Skills
+                  {isId ? "Semua Keahlian" : "All Skills"}
                 </TabsTrigger>
-                {skillsData.map((cat) => (
+                {skills.map((cat) => (
                   <TabsTrigger
                     key={cat.category}
                     value={cat.category}
@@ -391,8 +467,8 @@ export default function AboutPage() {
 
               {/* All Skills Tab */}
               <TabsContent value="all" className="space-y-6">
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                  {skillsData.map((cat) => (
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">
+                  {skills.map((cat) => (
                     <Card
                       key={cat.category}
                       className="rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-xs"
@@ -418,7 +494,7 @@ export default function AboutPage() {
                                     : "bg-zinc-200/60 text-zinc-600",
                                 )}
                               >
-                                {skill.level}
+                                {getLocalizedSkillLevel(skill.level)}
                               </span>
                             )}
                           </div>
@@ -430,7 +506,7 @@ export default function AboutPage() {
               </TabsContent>
 
               {/* Individual Category Tabs */}
-              {skillsData.map((cat) => (
+              {skills.map((cat) => (
                 <TabsContent key={cat.category} value={cat.category}>
                   <Card className="rounded-2xl border border-zinc-200/80 bg-white p-6 sm:p-8 shadow-xs">
                     <h3 className="text-lg font-bold text-zinc-900 border-b border-zinc-100 pb-3">
@@ -454,7 +530,7 @@ export default function AboutPage() {
                               }
                               className="text-[10px]"
                             >
-                              {skill.level}
+                              {getLocalizedSkillLevel(skill.level)}
                             </Badge>
                           )}
                         </div>
@@ -473,11 +549,14 @@ export default function AboutPage() {
         <BlurFade delay={0.35} inView>
           <div className="rounded-2xl border border-rose-200/80 bg-gradient-to-br from-rose-50/50 via-white to-zinc-50 p-8 text-center sm:p-12 shadow-xs">
             <h2 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
-              Interested in collaborating or discussing an opportunity?
+              {isId
+                ? "Tertarik berkolaborasi atau mendiskusikan peluang kerja?"
+                : "Interested in collaborating or discussing an opportunity?"}
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-zinc-600 sm:text-base">
-              I am always eager to take on new software challenges and craft
-              impactful web applications.
+              {isId
+                ? "Saya selalu bersemangat untuk menghadapi tantangan rekayasa perangkat lunak baru dan menciptakan aplikasi web yang berdampak."
+                : "I am always eager to take on new software challenges and craft impactful web applications."}
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link
@@ -488,7 +567,7 @@ export default function AboutPage() {
                 )}
               >
                 <Mail className="mr-2 size-4" />
-                Get In Touch
+                {isId ? "Hubungi Saya" : "Get In Touch"}
                 <ArrowRight className="ml-2 size-4" />
               </Link>
               <Link
@@ -498,7 +577,7 @@ export default function AboutPage() {
                   "rounded-full px-6 hover:border-zinc-300 hover:bg-white",
                 )}
               >
-                Explore Projects
+                {isId ? "Jelajahi Proyek" : "Explore Projects"}
               </Link>
             </div>
           </div>
