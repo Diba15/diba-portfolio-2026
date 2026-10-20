@@ -115,7 +115,7 @@ export default function AboutPage() {
             </div>
 
             {/* Quick Initials Box */}
-            <div className="flex size-24 shrink-0 items-center justify-center rounded-2xl border border-zinc-200 bg-gradient-to-br from-zinc-50 to-zinc-100 font-extrabold text-2xl text-rose-600 shadow-xs sm:size-28 sm:text-3xl">
+            <div className="flex size-24 shrink-0 items-center justify-center rounded-2xl border border-zinc-200 bg-linear-to-br from-zinc-50 to-zinc-100 font-extrabold text-2xl text-rose-600 shadow-xs sm:size-28 sm:text-3xl">
               DB
             </div>
           </div>
@@ -384,7 +384,7 @@ export default function AboutPage() {
                       </span>
                     </div>
 
-                    <h3 className="mt-4 flex min-h-[3.5rem] items-start text-lg font-bold tracking-tight text-zinc-900 leading-snug">
+                    <h3 className="mt-4 flex min-h-14 items-start text-lg font-bold tracking-tight text-zinc-900 leading-snug">
                       {cert.title}
                     </h3>
 
@@ -547,7 +547,7 @@ export default function AboutPage() {
 
         {/* Bottom CTA Banner */}
         <BlurFade delay={0.35} inView>
-          <div className="rounded-2xl border border-rose-200/80 bg-gradient-to-br from-rose-50/50 via-white to-zinc-50 p-8 text-center sm:p-12 shadow-xs">
+          <div className="rounded-2xl border border-rose-200/80 bg-linear-to-br from-rose-50/50 via-white to-zinc-50 p-8 text-center sm:p-12 shadow-xs">
             <h2 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
               {isId
                 ? "Tertarik berkolaborasi atau mendiskusikan peluang kerja?"

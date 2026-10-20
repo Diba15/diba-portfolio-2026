@@ -49,7 +49,7 @@ export default function ExperienceSection() {
             <BlurFade key={exp.id} delay={0.15 * index} inView>
               <div className="group relative">
                 {/* Node point */}
-                <div className="absolute -left-[31px] top-6 size-4 rounded-full border-2 border-white bg-rose-600 shadow-xs ring-4 ring-rose-100 transition-transform duration-300 group-hover:scale-125 sm:-left-[47px] sm:size-5" />
+                <div className="absolute -left-7.75 top-6 size-4 rounded-full border-2 border-white bg-rose-600 shadow-xs ring-4 ring-rose-100 transition-transform duration-300 group-hover:scale-125 sm:-left-11.75 sm:size-5" />
 
                 <Card className="rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-xs transition-all duration-300 hover:border-zinc-300 hover:shadow-md sm:p-8">
                   {/* Header info */}

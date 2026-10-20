@@ -25,7 +25,7 @@ export default function NotFound() {
 
         <BlurFade delay={0.15} inView>
           {/* Large 404 Display */}
-          <h1 className="mt-6 font-black text-8xl tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-rose-600 via-rose-500 to-zinc-300 select-none sm:text-9xl">
+          <h1 className="mt-6 font-black text-8xl tracking-tight text-transparent bg-clip-text bg-linear-to-b from-rose-600 via-rose-500 to-zinc-300 select-none sm:text-9xl">
             404
           </h1>
           <h2 className="mt-2 text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
