@@ -1,21 +1,15 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import Brand from "@/components/ui/Brand";
+import LanguageSwitcher from "@/components/ui/language-switcher";
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
-import type { NavItem } from "@/types/navigation";
-
-const NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "/#hero" },
-  { label: "About", href: "/#about" },
-  { label: "Experience", href: "/#experience" },
-  { label: "Projects", href: "/#projects" },
-  { label: "Contact", href: "/#contact" },
-];
 
 export default function Navbar() {
+  const t = useTranslations("nav");
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -32,6 +26,14 @@ export default function Navbar() {
   const toggleMenu = () => setIsOpen((prev) => !prev);
   const closeMenu = () => setIsOpen(false);
 
+  const navItems = [
+    { label: t("home"), href: "/#hero" },
+    { label: t("about"), href: "/#about" },
+    { label: t("experience"), href: "/#experience" },
+    { label: t("projects"), href: "/#projects" },
+    { label: t("contact"), href: "/#contact" },
+  ];
+
   return (
     <header
       className={cn(
@@ -44,36 +46,44 @@ export default function Navbar() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Brand closeMenu={closeMenu} />
 
-        {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-8 md:flex">
-          {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium text-zinc-600 transition-colors hover:text-rose-600"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        {/* Desktop Navigation & Language Switcher */}
+        <div className="hidden items-center gap-6 md:flex">
+          <nav className="flex items-center gap-6">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm font-medium text-zinc-600 transition-colors hover:text-rose-600"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
 
-        {/* Mobile Menu Button */}
-        <button
-          type="button"
-          onClick={toggleMenu}
-          aria-expanded={isOpen}
-          aria-label={isOpen ? "Tutup menu" : "Buka menu"}
-          className="inline-flex items-center justify-center rounded-md p-2 text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-rose-500 md:hidden"
-        >
-          {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
-        </button>
+          <div className="h-4 w-px bg-zinc-200" />
+          <LanguageSwitcher />
+        </div>
+
+        {/* Mobile Actions: Language Switcher + Hamburger */}
+        <div className="flex items-center gap-2 md:hidden">
+          <LanguageSwitcher />
+          <button
+            type="button"
+            onClick={toggleMenu}
+            aria-expanded={isOpen}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            className="inline-flex items-center justify-center rounded-md p-2 text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 focus:outline-none focus:ring-2 focus:ring-rose-500"
+          >
+            {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation Dropdown */}
       {isOpen && (
         <nav className="border-b border-zinc-200 bg-white px-4 pt-2 pb-4 md:hidden">
-          <div className="flex flex-col space-y-3">
-            {NAV_ITEMS.map((item) => (
+          <div className="flex flex-col space-y-2">
+            {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}

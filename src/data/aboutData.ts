@@ -4,7 +4,7 @@ import type {
   SkillCategory,
 } from "@/types/about";
 
-export const educationData: EducationItem[] = [
+export const educationDataEn: EducationItem[] = [
   {
     id: "edu_revou",
     institution: "RevoU",
@@ -79,6 +79,81 @@ export const educationData: EducationItem[] = [
   },
 ];
 
+export const educationDataId: EducationItem[] = [
+  {
+    id: "edu_revou",
+    institution: "RevoU",
+    degree: "Associate Degree, Rekayasa Perangkat Lunak Fullstack",
+    fieldOfStudy: "Fullstack Software Engineering",
+    period: "Feb 2026 - Sep 2026",
+    location: "Remote",
+    finalProject:
+      "Trubrush: Platform Portofolio Seni Digital & Pemesanan Komisi dengan Integrasi Escrow dan Verifikasi Karya.",
+    techStack: [
+      "TypeScript",
+      "JavaScript",
+      "React",
+      "Next.js",
+      "NestJS",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "Git",
+    ],
+    descriptions: [
+      "Menyelesaikan program intensif full-stack membangun aplikasi web modern responsif dengan HTML, CSS, JavaScript, TypeScript, React, dan Next.js.",
+      "Merancang RESTful API menggunakan NestJS dan PostgreSQL dengan pendekatan arsitektur bersih (clean architecture).",
+      "Memanfaatkan Git untuk kontrol versi dan alur kerja kolaborasi tim, serta menerapkan AI tools secara bertanggung jawab untuk meningkatkan efisiensi pengembangan.",
+      "Membangun TruBrush sebagai proyek akhir (Final Project).",
+    ],
+  },
+  {
+    id: "edu_telkom_s1",
+    institution: "Telkom University",
+    degree: "Sarjana (S1), Informatika",
+    fieldOfStudy: "Teknik Informatika",
+    period: "Sep 2022 - Sep 2024",
+    location: "Bandung, Indonesia",
+    gpa: "3.69 / 4.00",
+    thesis:
+      "Penerapan Metode LSTM untuk Klasifikasi Indeks Kualitas Udara Dalam Ruangan terhadap Konsentrasi Polusi Udara.",
+    techStack: [
+      "Python",
+      "LSTM / Deep Learning",
+      "Machine Learning",
+      "Ilmu Komputer",
+      "Arsitektur Sistem",
+    ],
+    descriptions: [
+      "Lulus dengan IPK 3.69, berfokus pada prinsip rekayasa perangkat lunak dan sistem klasifikasi deep learning.",
+      "Menulis skripsi penelitian penerapan neural network Long Short-Term Memory (LSTM) untuk mengklasifikasikan indeks kualitas udara berdasarkan konsentrasi polutan.",
+    ],
+  },
+  {
+    id: "edu_telkom_d3",
+    institution: "Telkom University",
+    degree: "Diploma Tiga (D3), Rekayasa Perangkat Lunak Aplikasi",
+    fieldOfStudy: "Rekayasa Perangkat Lunak Aplikasi",
+    period: "Sep 2019 - Sep 2022",
+    location: "Bandung, Indonesia",
+    gpa: "3.85 / 4.00",
+    finalProject:
+      "PROAKFIT, Aplikasi Pengelolaan Proyek Akhir Mahasiswa Fakultas Ilmu Terapan.",
+    techStack: [
+      "PHP",
+      "Laravel",
+      "CodeIgniter",
+      "MySQL",
+      "Java",
+      "JavaScript",
+      "Web Development",
+    ],
+    descriptions: [
+      "Lulus dengan predikat Sangat Memuaskan (IPK 3.85), membangun fondasi kokoh dalam arsitektur web, manajemen basis data relasional, dan pemrograman berorientasi objek.",
+      "Mengembangkan PROAKFIT sebagai proyek akhir, aplikasi manajemen akademik lengkap yang digunakan untuk mengoordinasikan sidang proyek akhir mahasiswa Fakultas Ilmu Terapan.",
+    ],
+  },
+];
+
 export const certificationData: CertificationItem[] = [
   {
     id: "cert_dicoding_frontend",
@@ -109,7 +184,7 @@ export const certificationData: CertificationItem[] = [
   },
 ];
 
-export const skillsData: SkillCategory[] = [
+export const skillsDataEn: SkillCategory[] = [
   {
     category: "Programming Languages",
     skills: [
@@ -161,3 +236,73 @@ export const skillsData: SkillCategory[] = [
     ],
   },
 ];
+
+export const skillsDataId: SkillCategory[] = [
+  {
+    category: "Bahasa Pemrograman",
+    skills: [
+      { name: "TypeScript", level: "Advanced" },
+      { name: "JavaScript (ES6+)", level: "Advanced" },
+      { name: "PHP", level: "Intermediate" },
+      { name: "SQL", level: "Advanced" },
+      { name: "Python", level: "Intermediate" },
+      { name: "Java", level: "Intermediate" },
+    ],
+  },
+  {
+    category: "Framework & Pustaka",
+    skills: [
+      { name: "React 19", level: "Intermediate" },
+      { name: "Next.js 16 (App Router)", level: "Intermediate" },
+      { name: "Tailwind CSS v4", level: "Advanced" },
+      { name: "NestJS", level: "Intermediate" },
+      { name: "Express.js", level: "Intermediate" },
+      { name: "Laravel", level: "Intermediate" },
+      { name: "Vue.js", level: "Intermediate" },
+      { name: "Bootstrap", level: "Advanced" },
+      { name: "Zustand & TanStack Query", level: "Advanced" },
+    ],
+  },
+  {
+    category: "Basis Data & Perangkat",
+    skills: [
+      { name: "PostgreSQL", level: "Intermediate" },
+      { name: "MySQL", level: "Intermediate" },
+      { name: "MongoDB", level: "Intermediate" },
+      { name: "Git & GitHub", level: "Advanced" },
+      { name: "Bun & NPM", level: "Advanced" },
+      { name: "Biome", level: "Advanced" },
+      { name: "Tableau", level: "Intermediate" },
+      { name: "Excel & Google Sheets", level: "Intermediate" },
+    ],
+  },
+  {
+    category: "Soft Skills & Prinsip Kerja",
+    skills: [
+      { name: "Kolaborasi Tim", level: "Advanced" },
+      { name: "Pemecahan Masalah", level: "Intermediate" },
+      { name: "Manajemen Waktu", level: "Advanced" },
+      { name: "Ketelitian & Detail", level: "Intermediate" },
+      { name: "Berpikir Analitis", level: "Advanced" },
+      { name: "Kemampuan Adaptasi", level: "Advanced" },
+      { name: "Pemanfaatan AI Bertanggung Jawab", level: "Advanced" },
+    ],
+  },
+];
+
+export function getEducationData(locale: string = "en"): EducationItem[] {
+  return locale === "id" ? educationDataId : educationDataEn;
+}
+
+export function getSkillsData(locale: string = "en"): SkillCategory[] {
+  return locale === "id" ? skillsDataId : skillsDataEn;
+}
+
+export function getCertificationData(
+  _locale: string = "en",
+): CertificationItem[] {
+  return certificationData;
+}
+
+export const educationData = educationDataEn;
+export const skillsData = skillsDataEn;

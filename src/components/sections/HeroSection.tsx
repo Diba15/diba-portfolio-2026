@@ -2,17 +2,21 @@
 
 import { ArrowRight, Mail } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { GithubIcon, InstagramIcon, LinkedinIcon } from "@/assets/icons";
 import { buttonVariants } from "@/components/ui/button";
 import Particles from "@/components/ui/particles";
 import { TypingAnimation } from "@/components/ui/typing-animation";
-import { profileData } from "@/data/profileData";
+import { getProfileData } from "@/data/profileData";
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 export default function HeroSection() {
   const [imgError, setImgError] = useState(false);
+  const locale = useLocale();
+  const t = useTranslations("hero");
+  const profile = getProfileData(locale);
 
   return (
     <section
@@ -40,19 +44,19 @@ export default function HeroSection() {
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-rose-400 opacity-75" />
                 <span className="relative inline-flex size-2 rounded-full bg-rose-600" />
               </span>
-              {profileData.availability}
+              {profile.availability}
             </div>
 
             {/* Headline Greeting & Name */}
             <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-zinc-900 sm:text-5xl lg:text-6xl">
-              Hi, I'm{" "}
-              <span className="text-zinc-900">{profileData.fullName}</span>
+              {t("greeting")}{" "}
+              <span className="text-zinc-900">{profile.fullName}</span>
             </h1>
 
             {/* Typing Animation for Roles */}
             <div className="mt-3 flex min-h-10 items-center text-2xl font-bold text-rose-600 sm:text-3xl">
               <TypingAnimation
-                words={profileData.roles}
+                words={profile.roles}
                 loop
                 className="text-rose-600"
                 typeSpeed={70}
@@ -63,7 +67,7 @@ export default function HeroSection() {
 
             {/* Bio Summary */}
             <p className="mt-5 max-w-xl text-base leading-relaxed text-zinc-600 sm:text-lg">
-              {profileData.shortBio}
+              {profile.shortBio}
             </p>
 
             {/* Action Buttons & Social Links */}
@@ -75,7 +79,7 @@ export default function HeroSection() {
                   "rounded-full shadow-md",
                 )}
               >
-                View Projects
+                {t("viewProjects")}
                 <ArrowRight className="size-4" />
               </Link>
 
@@ -86,13 +90,13 @@ export default function HeroSection() {
                   "rounded-full",
                 )}
               >
-                Contact Me
+                {t("contactMe")}
               </Link>
 
               {/* Social Link Icons */}
               <div className="flex items-center gap-1 pl-2">
-                <Link
-                  href={profileData.socials.github}
+                <a
+                  href={profile.socials.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={cn(
@@ -102,10 +106,10 @@ export default function HeroSection() {
                   aria-label="GitHub Profile"
                 >
                   <GithubIcon className="size-5" />
-                </Link>
+                </a>
 
-                <Link
-                  href={profileData.socials.linkedin}
+                <a
+                  href={profile.socials.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={cn(
@@ -115,10 +119,10 @@ export default function HeroSection() {
                   aria-label="LinkedIn Profile"
                 >
                   <LinkedinIcon className="size-5" />
-                </Link>
+                </a>
 
-                <Link
-                  href={profileData.socials.instagram}
+                <a
+                  href={profile.socials.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={cn(
@@ -128,10 +132,10 @@ export default function HeroSection() {
                   aria-label="Instagram Profile"
                 >
                   <InstagramIcon className="size-5" />
-                </Link>
+                </a>
 
-                <Link
-                  href={`mailto:${profileData.email}`}
+                <a
+                  href={`mailto:${profile.email}`}
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "icon" }),
                     "rounded-full text-zinc-600 hover:text-rose-600",
@@ -139,7 +143,7 @@ export default function HeroSection() {
                   aria-label="Email Me"
                 >
                   <Mail className="size-5" />
-                </Link>
+                </a>
               </div>
             </div>
           </div>
@@ -154,8 +158,8 @@ export default function HeroSection() {
               <div className="relative flex size-64 items-center justify-center overflow-hidden rounded-full border-4 border-white bg-linear-to-b from-rose-50 to-zinc-100 shadow-2xl ring-1 ring-zinc-200/80 sm:size-80">
                 {!imgError ? (
                   <Image
-                    src={profileData.avatarUrl}
-                    alt={profileData.fullName}
+                    src={profile.avatarUrl}
+                    alt={profile.fullName}
                     fill
                     priority
                     sizes="(max-width: 768px) 256px, 320px"

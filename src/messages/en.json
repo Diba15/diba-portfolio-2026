@@ -1,0 +1,106 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "availability": "Available for new opportunities",
+    "viewProjects": "View Projects",
+    "contactMe": "Get in Touch",
+    "downloadCv": "Download CV"
+  },
+  "aboutSection": {
+    "badge": "About Me",
+    "title": "Engineering with empathy, clarity & precision",
+    "readMore": "Read Full Story",
+    "quickStats": "Quick Highlights",
+    "stats": {
+      "years": "Years of Journey",
+      "projects": "Projects Built",
+      "technologies": "Technologies Mastered"
+    }
+  },
+  "experienceSection": {
+    "badge": "Career Journey",
+    "title": "Where I've Contributed",
+    "subtitle": "A timeline of my professional roles, engineering internships, and growth."
+  },
+  "projectsSection": {
+    "badge": "Portfolio",
+    "title": "Featured Projects",
+    "subtitle": "A curated selection of applications highlighting full-stack engineering, performance, and user-centric craftsmanship.",
+    "viewCaseStudy": "View Case Study",
+    "liveDemo": "Live Demo",
+    "sourceCode": "Source Code",
+    "allProjects": "All Projects"
+  },
+  "contactSection": {
+    "badge": "Get in Touch",
+    "title": "Let's build something exceptional together",
+    "subtitle": "I'm always open to discussing new opportunities, frontend & full-stack roles, or exciting engineering challenges.",
+    "form": {
+      "name": "Your Name",
+      "namePlaceholder": "e.g. Dimas Bagas",
+      "email": "Your Email",
+      "emailPlaceholder": "diba@example.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "e.g. Project Discussion / Job Opportunity",
+      "message": "Message",
+      "messagePlaceholder": "Tell me about your project, team, or opportunity...",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "successTitle": "Message sent successfully!",
+      "successDesc": "Thank you for reaching out. I'll get back to you as soon as possible.",
+      "errorTitle": "Failed to send message",
+      "errorDesc": "Something went wrong while sending your message. Please reach out directly at my email."
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "craftedWith": "Crafted with Next.js, Tailwind CSS, and TypeScript."
+  },
+  "aboutPage": {
+    "backHome": "Back to Home",
+    "badge": "About Me",
+    "tabs": {
+      "skills": "Skills & Tech Stack",
+      "education": "Education",
+      "certifications": "Certifications"
+    },
+    "techStackTitle": "Technical Expertise",
+    "educationTitle": "Academic Background",
+    "certificationsTitle": "Licenses & Certifications",
+    "viewCertificate": "View Credential",
+    "finalProject": "Final Project",
+    "thesis": "Thesis",
+    "gpa": "GPA"
+  },
+  "projectDetailPage": {
+    "backProjects": "Back to Projects",
+    "backHome": "Back to Home",
+    "overview": "Overview",
+    "problem": "The Challenge",
+    "objectives": "Key Objectives",
+    "solution": "The Solution",
+    "keyFeatures": "Key Features",
+    "resultsMetrics": "Results & Impact",
+    "architecture": "System Architecture",
+    "techStack": "Technologies Used",
+    "liveDemo": "Live Demo",
+    "github": "GitHub Repository",
+    "docs": "API Documentation",
+    "gallery": "Project Gallery",
+    "notFoundTitle": "Project Not Found",
+    "notFoundDesc": "The requested case study could not be found."
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for might have been moved, renamed, or doesn't exist.",
+    "backHome": "Back to Home"
+  }
+}
+

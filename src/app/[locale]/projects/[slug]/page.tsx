@@ -12,8 +12,8 @@ import {
   Target,
   Workflow,
 } from "lucide-react";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { setRequestLocale } from "next-intl/server";
 import { GithubIcon } from "@/assets/icons";
 import { Badge } from "@/components/ui/badge";
 import { BlurFade } from "@/components/ui/blur-fade";
@@ -28,22 +28,26 @@ import {
 } from "@/components/ui/carousel";
 import { ProjectImageSlide } from "@/components/ui/project-image-slide";
 import { Separator } from "@/components/ui/separator";
-import { projectsData } from "@/data/projectsData";
+import { getProjectBySlug, getProjectsData } from "@/data/projectsData";
+import { Link, routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 interface ProjectDetailPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export function generateStaticParams() {
-  return projectsData.map((project) => ({
-    slug: project.slug,
-  }));
+  return routing.locales.flatMap((locale) =>
+    getProjectsData(locale).map((project) => ({
+      locale,
+      slug: project.slug,
+    })),
+  );
 }
 
 export async function generateMetadata({ params }: ProjectDetailPageProps) {
-  const { slug } = await params;
-  const project = projectsData.find((p) => p.slug === slug);
+  const { locale, slug } = await params;
+  const project = getProjectBySlug(slug, locale);
 
   if (!project) {
     return {
@@ -60,19 +64,22 @@ export async function generateMetadata({ params }: ProjectDetailPageProps) {
 export default async function ProjectDetailPage({
   params,
 }: ProjectDetailPageProps) {
-  const { slug } = await params;
-  const project = projectsData.find((p) => p.slug === slug);
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+
+  const project = getProjectBySlug(slug, locale);
 
   if (!project) {
     notFound();
   }
 
+  const isId = locale === "id";
   const images =
     project.gallery && project.gallery.length > 0
       ? project.gallery
       : [project.thumbnail];
 
-  const otherProjects = projectsData.filter((p) => p.slug !== slug);
+  const otherProjects = getProjectsData(locale).filter((p) => p.slug !== slug);
   const cs = project.caseStudy;
 
   return (
@@ -89,7 +96,7 @@ export default async function ProjectDetailPage({
               )}
             >
               <ArrowLeft className="mr-2 size-4" />
-              Back to Projects
+              {isId ? "Kembali ke Proyek" : "Back to Projects"}
             </Link>
           </div>
         </BlurFade>
@@ -107,7 +114,7 @@ export default async function ProjectDetailPage({
                 {project.category} Application
               </Badge>
               <span className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-0.5 text-xs font-medium text-zinc-600">
-                Featured Case Study
+                {isId ? "Studi Kasus Unggulan" : "Featured Case Study"}
               </span>
             </div>
 
@@ -133,7 +140,7 @@ export default async function ProjectDetailPage({
                   )}
                 >
                   <ExternalLink className="mr-2 size-4" />
-                  Visit Live Website
+                  {isId ? "Kunjungi Website Langsung" : "Visit Live Website"}
                 </a>
               )}
 
@@ -148,7 +155,7 @@ export default async function ProjectDetailPage({
                   )}
                 >
                   <GithubIcon className="mr-2 size-4" />
-                  View GitHub Repository
+                  {isId ? "Repositori GitHub" : "View GitHub Repository"}
                 </a>
               )}
 
@@ -170,7 +177,7 @@ export default async function ProjectDetailPage({
           </div>
         </BlurFade>
 
-        {/* Section 4: Visual Suggestion (Screenshot Mockup Carousel) */}
+        {/* Visual Mockup Carousel */}
         <BlurFade delay={0.15} inView>
           <div className="mt-12">
             <Carousel className="w-full" opts={{ loop: true }}>
@@ -218,7 +225,11 @@ export default async function ProjectDetailPage({
 
               {/* Interaction Hint */}
               <div className="mt-3 flex items-center justify-between px-2 text-xs text-zinc-400">
-                <span>Swipe or click arrows to view gallery</span>
+                <span>
+                  {isId
+                    ? "Geser atau klik panah untuk melihat galeri"
+                    : "Swipe or click arrows to view gallery"}
+                </span>
                 <span className="font-medium text-rose-600">
                   {images.length} Screenshots
                 </span>
@@ -229,7 +240,7 @@ export default async function ProjectDetailPage({
 
         <Separator className="my-14" />
 
-        {/* Case Study Content (RevoU Slide Layout: 2 Balanced Columns) */}
+        {/* Case Study Content */}
         {cs ? (
           <>
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
@@ -242,17 +253,23 @@ export default async function ProjectDetailPage({
                       <div>
                         <div className="flex items-center gap-2 text-rose-600 font-semibold text-xs tracking-wider uppercase">
                           <Sparkles className="size-3.5" />
-                          <span>Section 1: Project Summary</span>
+                          <span>
+                            {isId
+                              ? "Bagian 1: Ringkasan Proyek"
+                              : "Section 1: Project Summary"}
+                          </span>
                         </div>
                         <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900">
-                          Project Background
+                          {isId
+                            ? "Latar Belakang Proyek"
+                            : "Project Background"}
                         </h2>
                       </div>
 
                       {/* Overview */}
                       <div className="space-y-1.5">
                         <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                          Overview
+                          {isId ? "Ringkasan" : "Overview"}
                         </h3>
                         <p className="text-sm leading-relaxed text-zinc-600">
                           {cs.overview}
@@ -262,7 +279,7 @@ export default async function ProjectDetailPage({
                       {/* Problem Statement */}
                       <div className="space-y-1.5">
                         <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                          Problem Statement
+                          {isId ? "Tantangan Masalah" : "Problem Statement"}
                         </h3>
                         <p className="text-sm leading-relaxed text-zinc-600">
                           {cs.problemStatement}
@@ -274,7 +291,9 @@ export default async function ProjectDetailPage({
                         cs.problemSolutions.length > 0 && (
                           <div className="space-y-2 pt-1">
                             <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                              Masalah &amp; Solusi Kunci
+                              {isId
+                                ? "Masalah & Solusi Kunci"
+                                : "Core Problems & Solutions"}
                             </h3>
                             <div className="space-y-2">
                               {cs.problemSolutions.map((item, idx) => (
@@ -307,17 +326,21 @@ export default async function ProjectDetailPage({
                   </Card>
                 </BlurFade>
 
-                {/* Block 2: Technical Stack (Section 3: Tools & Method) */}
+                {/* Block 2: Technical Stack */}
                 <BlurFade delay={0.25} inView>
                   <Card className="rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-xs sm:p-7 space-y-6">
                     <CardContent className="p-0 space-y-6">
                       <div>
                         <div className="flex items-center gap-2 text-rose-600 font-semibold text-xs tracking-wider uppercase">
                           <Layers className="size-3.5" />
-                          <span>Section 3: Tools &amp; Method</span>
+                          <span>
+                            {isId
+                              ? "Bagian 3: Alat & Metodologi"
+                              : "Section 3: Tools & Method"}
+                          </span>
                         </div>
                         <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900">
-                          Technical Stack
+                          {isId ? "Tumpukan Teknologi" : "Technical Stack"}
                         </h2>
                       </div>
 
@@ -354,17 +377,23 @@ export default async function ProjectDetailPage({
                       <div>
                         <div className="flex items-center gap-2 text-rose-600 font-semibold text-xs tracking-wider uppercase">
                           <Workflow className="size-3.5" />
-                          <span>Methodology &amp; Strategy</span>
+                          <span>
+                            {isId
+                              ? "Metodologi & Strategi"
+                              : "Methodology & Strategy"}
+                          </span>
                         </div>
                         <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900">
-                          Objectives &amp; Methodology
+                          {isId
+                            ? "Tujuan & Pendekatan Arsitektur"
+                            : "Objectives & Methodology"}
                         </h2>
                       </div>
 
                       {/* Objectives */}
                       <div className="space-y-2">
                         <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                          Objectives
+                          {isId ? "Tujuan Utama" : "Objectives"}
                         </h3>
                         <ul className="space-y-2 text-sm text-zinc-600">
                           {cs.objectives.map((obj) => (
@@ -379,7 +408,9 @@ export default async function ProjectDetailPage({
                       {/* Solution & Architecture */}
                       <div className="space-y-1.5 pt-1">
                         <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                          Solution &amp; Architecture
+                          {isId
+                            ? "Solusi & Arsitektur"
+                            : "Solution & Architecture"}
                         </h3>
                         <p className="text-sm leading-relaxed text-zinc-600">
                           {cs.solution}
@@ -389,7 +420,7 @@ export default async function ProjectDetailPage({
                   </Card>
                 </BlurFade>
 
-                {/* Block 4: Results & Output (Scope of Work / Achievements) */}
+                {/* Block 4: Results & Output */}
                 <BlurFade delay={0.28} inView>
                   <Card className="rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-xs sm:p-7 space-y-6">
                     <CardContent className="p-0 space-y-6">
@@ -397,18 +428,22 @@ export default async function ProjectDetailPage({
                         <div className="flex items-center gap-2 text-rose-600 font-semibold text-xs tracking-wider uppercase">
                           <ShieldCheck className="size-3.5" />
                           <span>
-                            Section 2: Scope of Work &amp; Achievements
+                            {isId
+                              ? "Bagian 2: Hasil Kerja & Pencapaian"
+                              : "Section 2: Scope of Work & Achievements"}
                           </span>
                         </div>
                         <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900">
-                          Results &amp; Output
+                          {isId ? "Hasil & Keluaran" : "Results & Output"}
                         </h2>
                       </div>
 
                       {/* Outcomes */}
                       <div className="space-y-2.5">
                         <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                          Outcomes &amp; Delivered Features
+                          {isId
+                            ? "Hasil & Fitur Terkirim"
+                            : "Outcomes & Delivered Features"}
                         </h3>
                         <ul className="space-y-2 text-sm text-zinc-600">
                           {cs.outcomes.map((item) => (
@@ -423,7 +458,9 @@ export default async function ProjectDetailPage({
                       {/* Key Achievements */}
                       <div className="space-y-2.5">
                         <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-                          Key Achievements &amp; Engineering Rigor
+                          {isId
+                            ? "Pencapaian Utama & Kualitas Kode"
+                            : "Key Achievements & Engineering Rigor"}
                         </h3>
                         <ul className="space-y-2 text-sm text-zinc-600">
                           {cs.keyAchievements.map((item) => (
@@ -441,7 +478,9 @@ export default async function ProjectDetailPage({
                       {cs.impact && (
                         <div className="rounded-xl border border-rose-100 bg-rose-50/50 p-4 space-y-1">
                           <h4 className="text-xs font-bold uppercase tracking-wider text-rose-800">
-                            Impact &amp; Key Value
+                            {isId
+                              ? "Dampak & Nilai Tambah"
+                              : "Impact & Key Value"}
                           </h4>
                           <p className="text-xs leading-relaxed text-rose-950">
                             {cs.impact}
@@ -461,10 +500,16 @@ export default async function ProjectDetailPage({
                   <div>
                     <div className="flex items-center gap-2 text-rose-600 font-semibold text-xs tracking-wider uppercase">
                       <Rocket className="size-3.5" />
-                      <span>Future Roadmap &amp; Next Steps</span>
+                      <span>
+                        {isId
+                          ? "Peta Jalan Masa Depan"
+                          : "Future Roadmap & Next Steps"}
+                      </span>
                     </div>
                     <h3 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900">
-                      Rencana Pengembangan Masa Depan
+                      {isId
+                        ? "Rencana Pengembangan Mendatang"
+                        : "Future Planned Expansions"}
                     </h3>
                   </div>
 
@@ -500,7 +545,7 @@ export default async function ProjectDetailPage({
           <BlurFade delay={0.2} inView>
             <section className="space-y-6">
               <h2 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
-                Project Overview &amp; Background
+                {isId ? "Ringkasan Proyek" : "Project Overview & Background"}
               </h2>
               <div className="space-y-4 text-base leading-relaxed text-zinc-600 sm:text-lg">
                 <p>{project.description}</p>
@@ -517,10 +562,10 @@ export default async function ProjectDetailPage({
             <div>
               <div className="flex items-center gap-2 text-rose-600 font-semibold text-sm">
                 <Compass className="size-4" />
-                <span>Explore More</span>
+                <span>{isId ? "Jelajahi Lebih Banyak" : "Explore More"}</span>
               </div>
               <h2 className="mt-1 text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
-                Other Featured Projects
+                {isId ? "Proyek Pilihan Lainnya" : "Other Featured Projects"}
               </h2>
             </div>
 
@@ -543,7 +588,7 @@ export default async function ProjectDetailPage({
                         {other.category}
                       </Badge>
                       <span className="text-xs font-medium text-zinc-400">
-                        Featured
+                        {isId ? "Unggulan" : "Featured"}
                       </span>
                     </div>
 
@@ -563,7 +608,7 @@ export default async function ProjectDetailPage({
                         "w-full rounded-lg text-xs font-semibold hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600",
                       )}
                     >
-                      View Case Study
+                      {isId ? "Lihat Studi Kasus" : "View Case Study"}
                       <ArrowRight className="ms-1.5 size-3.5" />
                     </Link>
                   </div>
@@ -579,11 +624,14 @@ export default async function ProjectDetailPage({
         <BlurFade delay={0.4} inView>
           <div className="rounded-2xl border border-rose-200/80 bg-linear-to-br from-rose-50/50 via-white to-zinc-50 p-8 text-center sm:p-12 shadow-xs">
             <h2 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
-              Have a project in mind or want to build something together?
+              {isId
+                ? "Punya rencana proyek atau ingin membangun sesuatu bersama?"
+                : "Have a project in mind or want to build something together?"}
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-zinc-600 sm:text-base">
-              I am open to full-time roles, contracts, and discussing innovative
-              software products.
+              {isId
+                ? "Saya terbuka untuk posisi full-time, kontrak, maupun mendiskusikan inovasi produk digital."
+                : "I am open to full-time roles, contracts, and discussing innovative software products."}
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Link
@@ -593,7 +641,7 @@ export default async function ProjectDetailPage({
                   "rounded-full px-6 shadow-xs hover:shadow-md",
                 )}
               >
-                Let&apos;s Talk
+                {isId ? "Mari Berdiskusi" : "Let's Talk"}
                 <ArrowRight className="ml-2 size-4" />
               </Link>
               <Link
@@ -603,7 +651,7 @@ export default async function ProjectDetailPage({
                   "rounded-full px-6 hover:border-zinc-300 hover:bg-white",
                 )}
               >
-                Browse All Projects
+                {isId ? "Lihat Semua Proyek" : "Browse All Projects"}
               </Link>
             </div>
           </div>

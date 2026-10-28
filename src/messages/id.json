@@ -1,0 +1,106 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "about": "Tentang",
+    "experience": "Pengalaman",
+    "projects": "Proyek",
+    "contact": "Kontak"
+  },
+  "hero": {
+    "greeting": "Halo, saya",
+    "availability": "Tersedia untuk peluang baru",
+    "viewProjects": "Lihat Proyek",
+    "contactMe": "Hubungi Saya",
+    "downloadCv": "Unduh CV"
+  },
+  "aboutSection": {
+    "badge": "Tentang Saya",
+    "title": "Membangun dengan empati, kejelasan & presisi",
+    "readMore": "Baca Profil Lengkap",
+    "quickStats": "Ringkasan Singkat",
+    "stats": {
+      "years": "Tahun Perjalanan",
+      "projects": "Proyek Selesai",
+      "technologies": "Teknologi Dikuasai"
+    }
+  },
+  "experienceSection": {
+    "badge": "Perjalanan Karier",
+    "title": "Pengalaman & Kontribusi",
+    "subtitle": "Jejak karier profesional, magang software engineering, dan rekam jejak kontribusi saya."
+  },
+  "projectsSection": {
+    "badge": "Portofolio",
+    "title": "Proyek Unggulan",
+    "subtitle": "Koleksi proyek terpilih yang memperlihatkan keahlian full-stack, performa tinggi, dan ketelitian desain produk.",
+    "viewCaseStudy": "Lihat Studi Kasus",
+    "liveDemo": "Kunjungi Web",
+    "sourceCode": "Kode Sumber",
+    "allProjects": "Semua Proyek"
+  },
+  "contactSection": {
+    "badge": "Hubungi Saya",
+    "title": "Mari wujudkan kolaborasi hebat bersama",
+    "subtitle": "Saya selalu terbuka untuk mendiskusikan peluang kerja baru, posisi frontend & full-stack, atau tantangan rekayasa software.",
+    "form": {
+      "name": "Nama Anda",
+      "namePlaceholder": "misal: Dimas Bagas",
+      "email": "Email Anda",
+      "emailPlaceholder": "diba@example.com",
+      "subject": "Subjek",
+      "subjectPlaceholder": "misal: Tawaran Kerja / Diskusi Proyek",
+      "message": "Pesan",
+      "messagePlaceholder": "Ceritakan mengenai proyek, tim, atau peluang Anda...",
+      "send": "Kirim Pesan",
+      "sending": "Mengirim...",
+      "successTitle": "Pesan berhasil terkirim!",
+      "successDesc": "Terima kasih telah menghubungi. Saya akan membalas pesan Anda sesegera mungkin.",
+      "errorTitle": "Gagal mengirim pesan",
+      "errorDesc": "Terjadi kendala saat mengirim pesan. Silakan hubungi saya langsung via email."
+    }
+  },
+  "footer": {
+    "rights": "Hak cipta dilindungi.",
+    "craftedWith": "Dibuat dengan Next.js, Tailwind CSS, dan TypeScript."
+  },
+  "aboutPage": {
+    "backHome": "Kembali ke Beranda",
+    "badge": "Tentang Saya",
+    "tabs": {
+      "skills": "Keahlian & Teknologi",
+      "education": "Pendidikan",
+      "certifications": "Sertifikasi"
+    },
+    "techStackTitle": "Keahlian Teknis",
+    "educationTitle": "Latar Belakang Pendidikan",
+    "certificationsTitle": "Lisensi & Sertifikasi",
+    "viewCertificate": "Lihat Sertifikat",
+    "finalProject": "Tugas Akhir",
+    "thesis": "Skripsi",
+    "gpa": "IPK"
+  },
+  "projectDetailPage": {
+    "backProjects": "Kembali ke Proyek",
+    "backHome": "Kembali ke Beranda",
+    "overview": "Ringkasan",
+    "problem": "Tantangan Masalah",
+    "objectives": "Tujuan Utama",
+    "solution": "Solusi yang Dibangun",
+    "keyFeatures": "Fitur Utama",
+    "resultsMetrics": "Hasil & Dampak",
+    "architecture": "Arsitektur Sistem",
+    "techStack": "Teknologi yang Digunakan",
+    "liveDemo": "Kunjungi Web",
+    "github": "Repositori GitHub",
+    "docs": "Dokumentasi API",
+    "gallery": "Galeri Proyek",
+    "notFoundTitle": "Proyek Tidak Ditemukan",
+    "notFoundDesc": "Studi kasus yang diminta tidak dapat ditemukan."
+  },
+  "notFound": {
+    "title": "Halaman Tidak Ditemukan",
+    "description": "Halaman yang Anda tuju mungkin sudah dipindahkan, diubah namanya, atau tidak tersedia.",
+    "backHome": "Kembali ke Beranda"
+  }
+}
+
