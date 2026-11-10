@@ -23,4 +23,3 @@ export default async function Home({ params }: HomePageProps) {
     </main>
   );
 }
-

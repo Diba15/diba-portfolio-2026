@@ -7,4 +7,3 @@ export const config = {
   // Match only internationalized pathnames, skipping internal Next.js assets and static files
   matcher: ["/", "/(id|en)/:path*", "/((?!api|_next|_vercel|.*\\..*).*)"],
 };
-
