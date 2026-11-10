@@ -36,12 +36,10 @@ export async function generateMetadata({
   const { locale } = await params;
   const isId = locale === "id";
 
-  const title = isId
-    ? "Dimas Bagas Saputro | Portofolio Frontend & Fullstack Developer"
-    : "Dimas Bagas Saputro | Frontend & Fullstack Developer Portfolio";
+  const title = "Dimas Bagas Saputro | Frontend & Fullstack Developer";
   const description = isId
-    ? "Portofolio pribadi Dimas Bagas Saputro, Software Developer yang membangun aplikasi web modern, performan, dan berpusat pada pengguna."
-    : "Personal portfolio of Dimas Bagas Saputro, a Software Developer crafting user-centric, performant, and clean web applications.";
+    ? "Software Developer yang membangun aplikasi web modern, performan, dan berpusat pada pengguna dengan kode bersih."
+    : "Software Developer crafting clean, performant, and user-centric web applications with modern architecture.";
 
   return {
     metadataBase: new URL(SITE_URL),
