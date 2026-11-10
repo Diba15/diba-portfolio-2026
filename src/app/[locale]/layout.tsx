@@ -26,6 +26,8 @@ interface LocaleLayoutProps {
   params: Promise<{ locale: string }>;
 }
 
+const SITE_URL = "https://diba-portfolio-2026.vercel.app";
+
 export async function generateMetadata({
   params,
 }: {
@@ -34,17 +36,77 @@ export async function generateMetadata({
   const { locale } = await params;
   const isId = locale === "id";
 
+  const title = isId
+    ? "Dimas Bagas Saputro | Portofolio Frontend & Fullstack Developer"
+    : "Dimas Bagas Saputro | Frontend & Fullstack Developer Portfolio";
+  const description = isId
+    ? "Portofolio pribadi Dimas Bagas Saputro, Software Developer yang membangun aplikasi web modern, performan, dan berpusat pada pengguna."
+    : "Personal portfolio of Dimas Bagas Saputro, a Software Developer crafting user-centric, performant, and clean web applications.";
+
   return {
-    title: isId
-      ? "Dimas Bagas Saputro | Portofolio Frontend & Fullstack Developer"
-      : "Dimas Bagas Saputro | Frontend & Fullstack Developer Portfolio",
-    description: isId
-      ? "Portofolio pribadi Dimas Bagas Saputro, Software Developer yang membangun aplikasi web modern, performan, dan berpusat pada pengguna."
-      : "Personal portfolio of Dimas Bagas Saputro, a Software Developer crafting user-centric, performant, and clean web applications.",
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: title,
+      template: "%s | Dimas Bagas Saputro",
+    },
+    description,
+    keywords: [
+      "Dimas Bagas Saputro",
+      "Diba",
+      "Software Developer",
+      "Frontend Developer",
+      "Fullstack Developer",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "NestJS",
+      "Tailwind CSS",
+      "Portofolio Developer",
+      "Karawang",
+      "Indonesia",
+    ],
+    authors: [
+      { name: "Dimas Bagas Saputro", url: "https://github.com/Diba15" },
+    ],
+    creator: "Dimas Bagas Saputro",
     alternates: {
+      canonical: `/${locale}`,
       languages: {
         en: "/en",
         id: "/id",
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: `/${locale}`,
+      siteName: "Dimas Bagas Saputro Portfolio",
+      images: [
+        {
+          url: "/preview.png",
+          width: 1200,
+          height: 630,
+          alt: "Dimas Bagas Saputro - Portfolio Preview",
+        },
+      ],
+      locale: isId ? "id_ID" : "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/preview.png"],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
       },
     },
   };

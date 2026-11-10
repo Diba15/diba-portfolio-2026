@@ -12,6 +12,7 @@ import {
   Target,
   Workflow,
 } from "lucide-react";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { GithubIcon } from "@/assets/icons";
@@ -26,6 +27,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Highlighter } from "@/components/ui/highlighter";
 import { ProjectImageSlide } from "@/components/ui/project-image-slide";
 import { Separator } from "@/components/ui/separator";
 import { getProjectBySlug, getProjectsData } from "@/data/projectsData";
@@ -45,20 +47,95 @@ export function generateStaticParams() {
   );
 }
 
-export async function generateMetadata({ params }: ProjectDetailPageProps) {
+export async function generateMetadata({
+  params,
+}: ProjectDetailPageProps): Promise<Metadata> {
   const { locale, slug } = await params;
   const project = getProjectBySlug(slug, locale);
 
   if (!project) {
     return {
-      title: "Project Not Found | Dimas Bagas Saputro",
+      title: "Project Not Found",
     };
   }
 
+  const isId = locale === "id";
+  const title = `${project.title} - ${isId ? "Studi Kasus" : "Case Study"}`;
+  const rawDescription = project.summary || project.description;
+  const description = rawDescription.replace(/<[^>]*>/g, "");
+  const image = project.thumbnail || "/preview.png";
+
   return {
-    title: `${project.title} - Case Study | Dimas Bagas Saputro`,
-    description: project.summary,
+    title,
+    description,
+    alternates: {
+      canonical: `/${locale}/projects/${slug}`,
+      languages: {
+        en: `/en/projects/${slug}`,
+        id: `/id/projects/${slug}`,
+      },
+    },
+    openGraph: {
+      title: `${title} | Dimas Bagas Saputro`,
+      description,
+      url: `/${locale}/projects/${slug}`,
+      siteName: "Dimas Bagas Saputro Portfolio",
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: `${project.title} Preview`,
+        },
+      ],
+      locale: isId ? "id_ID" : "en_US",
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | Dimas Bagas Saputro`,
+      description,
+      images: [image],
+    },
   };
+}
+
+function renderAnnotatedText(text: string) {
+  if (!text) return text;
+  if (!text.includes("<hl>") && !text.includes("<u>")) return text;
+
+  const parts = text.split(/(<hl>[\s\S]*?<\/hl>|<u>[\s\S]*?<\/u>)/g);
+
+  return parts.map((part) => {
+    if (part.startsWith("<hl>") && part.endsWith("</hl>")) {
+      const content = part.slice(4, -5);
+      return (
+        <Highlighter
+          key={`hl-${content}`}
+          action="highlight"
+          color="#fecdd3"
+          isView
+        >
+          {content}
+        </Highlighter>
+      );
+    }
+    if (part.startsWith("<u>") && part.endsWith("</u>")) {
+      const content = part.slice(3, -4);
+      return (
+        <Highlighter
+          key={`u-${content}`}
+          action="underline"
+          color="#f43f5e"
+          strokeWidth={2}
+          isView
+        >
+          {content}
+        </Highlighter>
+      );
+    }
+    return part;
+  });
 }
 
 export default async function ProjectDetailPage({
@@ -272,7 +349,7 @@ export default async function ProjectDetailPage({
                           {isId ? "Ringkasan" : "Overview"}
                         </h3>
                         <p className="text-sm leading-relaxed text-zinc-600">
-                          {cs.overview}
+                          {renderAnnotatedText(cs.overview)}
                         </p>
                       </div>
 
@@ -282,7 +359,7 @@ export default async function ProjectDetailPage({
                           {isId ? "Tantangan Masalah" : "Problem Statement"}
                         </h3>
                         <p className="text-sm leading-relaxed text-zinc-600">
-                          {cs.problemStatement}
+                          {renderAnnotatedText(cs.problemStatement)}
                         </p>
                       </div>
 
@@ -413,7 +490,7 @@ export default async function ProjectDetailPage({
                             : "Solution & Architecture"}
                         </h3>
                         <p className="text-sm leading-relaxed text-zinc-600">
-                          {cs.solution}
+                          {renderAnnotatedText(cs.solution)}
                         </p>
                       </div>
                     </CardContent>
@@ -467,7 +544,7 @@ export default async function ProjectDetailPage({
                             <li key={item} className="flex items-start gap-2.5">
                               <div className="mt-1 size-1.5 shrink-0 rounded-full bg-rose-600" />
                               <span className="leading-snug font-medium text-zinc-800">
-                                {item}
+                                {renderAnnotatedText(item)}
                               </span>
                             </li>
                           ))}
@@ -483,7 +560,7 @@ export default async function ProjectDetailPage({
                               : "Impact & Key Value"}
                           </h4>
                           <p className="text-xs leading-relaxed text-rose-950">
-                            {cs.impact}
+                            {renderAnnotatedText(cs.impact)}
                           </p>
                         </div>
                       )}
@@ -548,7 +625,7 @@ export default async function ProjectDetailPage({
                 {isId ? "Ringkasan Proyek" : "Project Overview & Background"}
               </h2>
               <div className="space-y-4 text-base leading-relaxed text-zinc-600 sm:text-lg">
-                <p>{project.description}</p>
+                <p>{renderAnnotatedText(project.description)}</p>
               </div>
             </section>
           </BlurFade>
